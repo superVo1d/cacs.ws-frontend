@@ -11,7 +11,7 @@ const FormatTeacher = ({teachers}) => {
       return (
         <>
           <span className="teacher-name" title={ teachers[0].last_name + ' ' + teachers[0].name + ' ' + teachers[0].patronymic }
-            onMouseUp={ () => history.push(`/${ teachers[0].status + teachers[0].cacs_id }`) }>
+            onMouseUp={ () => history.push(`${process.env.PUBLIC_URL}/${ teachers[0].status + teachers[0].cacs_id }`) }>
             { teachers[0].last_name + ' ' + teachers[0].name[0] + '.' + teachers[0].patronymic[0] + '.' }
           </span>
           <br/>
@@ -23,7 +23,7 @@ const FormatTeacher = ({teachers}) => {
 		                  return (
 		                    <React.Fragment key={i}>
 		                      <span className="teacher-name" title={ teacher.last_name + ' ' + teacher.name + ' ' + teacher.patronymic } 
-		                        onMouseUp={ () => history.push(`/${ teacher.status + teacher.cacs_id }`) }>
+		                        onMouseUp={ () => history.push(`${process.env.PUBLIC_URL}/${ teacher.status + teacher.cacs_id }`) }>
 		                        { teacher.last_name + ' ' + teacher.name[0] + '.' + teacher.patronymic[0] + '.\n' }
 		                      </span>
 		                      <br/>

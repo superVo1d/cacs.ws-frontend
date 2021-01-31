@@ -75,7 +75,7 @@ const SchedulePage = (props) => {
 						<Footer />
 					</main>
 				) : (
-					<Redirect to='/error' />
+					<Redirect to={`${process.env.PUBLIC_URL}/error`} />
 				)
 			}
 		</>

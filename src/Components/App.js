@@ -66,12 +66,12 @@ const App = (props) => {
 	}
 
 	return (
-		<BrowserRouter>
+		<BrowserRouter basename={'/build'}>
             <Switch>
-				<Route exact path='/'>
+				<Route exact path={`${process.env.PUBLIC_URL}/`}>
 					<WelcomePage mode={ currentMode }/>
 				</Route>
-			  	<Route exact path='/error'>
+			  	<Route exact path={`${process.env.PUBLIC_URL}/error`}>
 			  		<PageNotFound>
 			      		<NightmodeButton 
 			          		toggleTheme={ toggleTheme }
@@ -79,7 +79,7 @@ const App = (props) => {
 			        	/>
 			  		</PageNotFound>
 			  	</Route>
-			  	<Route path='/:id'>
+			  	<Route path={`${process.env.PUBLIC_URL}/:id`}>
 			  		<SchedulePage toggleTheme={toggleTheme} isChecked={isChecked} />
 			  	</Route>
 		  	</Switch>

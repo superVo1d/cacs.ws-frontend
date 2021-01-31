@@ -128,7 +128,7 @@ const Searchbar = (props) => {
 		setDisplay(false);
 		setOptions([]);
 
-		history.push(`/${ option.status + option.cacs_id }`);
+		history.push(`${process.env.PUBLIC_URL}/${ option.status + option.cacs_id }`);
 	}
 
 	const clearAll = () => {

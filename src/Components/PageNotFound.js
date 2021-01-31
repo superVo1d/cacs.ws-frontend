@@ -9,7 +9,7 @@ const PageNotFound = (props) => {
 	const history = useHistory();
 
 	const handleOnClick = () => {
-    	history.push(`/`);
+    	history.push(`${process.env.PUBLIC_URL}/`);
   	}
 
 	return (
