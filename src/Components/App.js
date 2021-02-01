@@ -66,7 +66,7 @@ const App = (props) => {
 	}
 
 	return (
-		<BrowserRouter basename={'/build'}>
+		<BrowserRouter basename={'/'}>
             <Switch>
 				<Route exact path={`${process.env.PUBLIC_URL}/`}>
 					<WelcomePage mode={ currentMode }/>
