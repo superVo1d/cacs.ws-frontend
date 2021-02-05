@@ -105,7 +105,7 @@ const Searchbar = (props) => {
 	}, [search]);
 
 	const getOptions = () => {
-	    fetch('/students', {
+	    fetch('api/students', {
         	method: 'POST',
         	headers: {
           		'Content-Type': 'application/json'

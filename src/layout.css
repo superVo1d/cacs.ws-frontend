@@ -560,7 +560,7 @@ footer {
 
 .schedule-nav-scrolled {
   //border-bottom: 1px solid var(--bg-light-color);
-  z-index: 2;
+  z-index: 1;
 }
 
 .schedule-nav-scrolled > .dates > .date {

@@ -320,7 +320,7 @@ const Timetable = (props) => {
   useEffect(() => {
     setIsLoaded(false);
 
-    fetch('/schedules', {
+    fetch('api/schedules', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'

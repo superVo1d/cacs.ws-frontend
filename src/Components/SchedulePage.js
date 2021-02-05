@@ -19,7 +19,7 @@ const SchedulePage = (props) => {
 
 	useLayoutEffect(() => {
 
-		fetch('/student_exists', {
+		fetch('api/student_exists', {
 	        method: 'POST',
 	        headers: {
 	          'Content-Type': 'application/json'
