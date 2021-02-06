@@ -105,7 +105,9 @@ const Searchbar = (props) => {
 	}, [search]);
 
 	const getOptions = () => {
-	    fetch('api/students', {
+		const apiPrefix = (!process.env.NODE_ENV || process.env.NODE_ENV === 'development') ? '' : 'api/';
+
+	    fetch(apiPrefix + 'students', {
         	method: 'POST',
         	headers: {
           		'Content-Type': 'application/json'

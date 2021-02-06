@@ -230,6 +230,16 @@ const Timetable = (props) => {
     }
   }
 
+  function getFirstMonday (date) {
+    let d = date;
+
+    while (d.getDay() !== 1) {
+        d.setDate(d.getDate() + 1);
+    }
+
+    return d;
+  }
+
   function getBoundsForWeeks() {
     let date = new Date();
 
@@ -239,14 +249,16 @@ const Timetable = (props) => {
 
     if (halfYear() === 2) {
       //Второе полугодие
-      lowerBound = new Date(date.getFullYear(), 0, 1, 0, 0, 0, 0);
+      lowerBound = getFirstMonday(new Date(date.getFullYear(), 1, 1, 0, 0, 0, 0));
       upperBound = new Date(date.getFullYear(), 7, 0, 0, 0, 0, 0);
     } else {
       //Первое полугодие
       if (date.getMonth !== 0) {
+        //Сейчас не январь
         lowerBound = new Date(date.getFullYear() - 1, 7, 1, 0, 0, 0, 0);
         upperBound = new Date(date.getFullYear(), 1, 0, 0, 0, 0, 0);
       } else {
+        //Сейчас январь
         lowerBound = new Date(date.getFullYear() - 1, 7, 1, 0, 0, 0, 0);
         upperBound = new Date(date.getFullYear(), 1, 0, 0, 0, 0, 0);
       }
@@ -320,7 +332,9 @@ const Timetable = (props) => {
   useEffect(() => {
     setIsLoaded(false);
 
-    fetch('api/schedules', {
+    const apiPrefix = (!process.env.NODE_ENV || process.env.NODE_ENV === 'development') ? '' : 'api/';
+
+    fetch(apiPrefix + 'schedules', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'

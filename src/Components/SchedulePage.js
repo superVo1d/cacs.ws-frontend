@@ -19,7 +19,9 @@ const SchedulePage = (props) => {
 
 	useLayoutEffect(() => {
 
-		fetch('api/student_exists', {
+		const apiPrefix = (!process.env.NODE_ENV || process.env.NODE_ENV === 'development') ? '' : 'api/';
+
+		fetch(apiPrefix + 'student_exists', {
 	        method: 'POST',
 	        headers: {
 	          'Content-Type': 'application/json'

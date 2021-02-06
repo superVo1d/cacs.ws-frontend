@@ -190,7 +190,7 @@ const Calendar = (props) => {
 			      <span className="month"><b>{ monthNames[(currentMonth % 12 + 12) % 12] }</b></span>
 			      <span className="year">&nbsp;{ currentYear }&nbsp;г.</span>
 			    </div>
-			    { (((halfYear() === 1) && (currentMonth >= 7)) || ((halfYear() === 2) && (currentMonth < 7))) &&
+			    { (((halfYear() === 1) && (currentMonth >= 7)) || ((halfYear() === 2) && (currentMonth < 6))) &&
 			    	<button className="btn next" onClick={ () => handleClickNext() }><div tabIndex="-1"><span className="next-icon"></span></div></button>
 			    }
 		    </div>
