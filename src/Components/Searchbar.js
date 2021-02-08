@@ -107,7 +107,7 @@ const Searchbar = (props) => {
 	const getOptions = () => {
 		const apiPrefix = (!process.env.NODE_ENV || process.env.NODE_ENV === 'development') ? '' : 'api/';
 
-	    fetch(apiPrefix + 'students', {
+	    fetch(apiPrefix + 'search', {
         	method: 'POST',
         	headers: {
           		'Content-Type': 'application/json'
@@ -129,6 +129,10 @@ const Searchbar = (props) => {
 		setSearch(option.name);
 		setDisplay(false);
 		setOptions([]);
+
+		if (props.setSearchbarIsOpen) {
+			props.setSearchbarIsOpen(false);
+		}
 
 		history.push(`${process.env.PUBLIC_URL}/${ option.status + option.cacs_id }`);
 	}
@@ -187,7 +191,11 @@ const Searchbar = (props) => {
             case 'Escape':
 	    		setDisplay(false);
 	    		setCursor(-1);
-	    		e.target.blur();          
+	    		e.target.blur();   
+
+				if (props.setSearchbarIsOpen) {
+					props.setSearchbarIsOpen(false);
+				}       
 
 	            break; 
 

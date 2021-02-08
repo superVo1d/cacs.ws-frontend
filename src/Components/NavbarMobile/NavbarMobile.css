@@ -1,0 +1,7 @@
+.navbar-mobile-wrapper {
+  padding: 0 10px;
+  height: auto;
+  background-color: var(--bg-color);
+  z-index: 2;
+  top: 0;
+}

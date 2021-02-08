@@ -104,7 +104,6 @@ button:focus {
   outline: 0;
 }
 
-
 .navbar-wrapper {
   width: 100%;
   height: auto;
@@ -123,6 +122,12 @@ button:focus {
   min-width: 900px;
   margin: 0 auto;
   padding: 0 8px;
+}
+
+.mobile-wrapper {
+  display: flex;
+  height: 100vh;
+  flex-flow: column;
 }
 
 footer.wrapper {
@@ -812,6 +817,9 @@ footer {
   -moz-user-select: none;
   -ms-user-select: none;
   user-select: none;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;  
 }
 
 .option.selected {

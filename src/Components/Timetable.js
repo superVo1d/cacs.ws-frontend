@@ -481,6 +481,7 @@ const Timetable = (props) => {
         <div className="field white-space"></div>
           <div className="date-info" 
             onMouseEnter={ () => setCalendarIsOpen(true) }
+                 onClick={ () => setCalendarIsOpen(true) }
                 tabIndex={-1}>
             <span className="month"><b>{ monthNames[getMonth()] }</b></span>
             <span className="year">&nbsp;{ getYear() }&nbsp;г.</span>
