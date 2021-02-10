@@ -1,6 +1,7 @@
 import { useState, useLayoutEffect } from 'react';
 import { Redirect, withRouter } from 'react-router-dom';
 import { useMediaQuery } from 'react-responsive'
+import { isMobile } from 'react-device-detect';
 
 import Timetable from './Timetable';
 import Footer from './Footer';
@@ -9,9 +10,10 @@ import NightmodeButton from './NightmodeButton';
 import DownloadButton from './DownloadButton';
 import Searchbar from './Searchbar';
 
-import TimetableMobile from './TimetableMobile/TimetableMobile';
-import NavbarMobile from './NavbarMobile/NavbarMobile';
-import SearchButton from './SearchButton/SearchButton';
+
+// import TimetableMobile from './TimetableMobile/TimetableMobile';
+// import NavbarMobile from './NavbarMobile/NavbarMobile';
+// import './../mobile.css';
 
 const SchedulePage = (props) => {
 
@@ -22,7 +24,7 @@ const SchedulePage = (props) => {
 	const [name, setName] = useState();
 
 	const isTabletOrMobile = useMediaQuery({
-	    query: '(max-width: 600px)'
+	    query: '(max-width: 916px)'
     })
 
 	useLayoutEffect(() => {
@@ -59,18 +61,24 @@ const SchedulePage = (props) => {
 
 	}, [id]);
 
+	// <div className="mobile-wrapper">
+	// 	<NavbarMobile>
+	// 		<div className="btn-container">
+	//         </div>
+	// 		<div className="searchbar-container">
+	// 			<Searchbar name={name}/>
+	//         </div>			        
+	// 		<div className="btn-container">
+	// 			<NightmodeButton 
+	//           		toggleTheme={ props.toggleTheme }
+	//           		  isChecked={ props.isChecked }
+	//         	/>
+	//         </div>
+	// 	</NavbarMobile>
+	// 	<TimetableMobile />
+	// </div>
 
 	return (
-		false ? 
-			<div className="mobile-wrapper">
-				<NavbarMobile>
-					<div className="btn-container">
-						<SearchButton name={name}/>
-			        </div>
-				</NavbarMobile>
-				<TimetableMobile />
-			</div>
-		:
 			<>
 				<Navbar>
 					<Searchbar name={name} />

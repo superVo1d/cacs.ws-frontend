@@ -130,10 +130,6 @@ const Searchbar = (props) => {
 		setDisplay(false);
 		setOptions([]);
 
-		if (props.setSearchbarIsOpen) {
-			props.setSearchbarIsOpen(false);
-		}
-
 		history.push(`${process.env.PUBLIC_URL}/${ option.status + option.cacs_id }`);
 	}
 
@@ -192,10 +188,6 @@ const Searchbar = (props) => {
 	    		setDisplay(false);
 	    		setCursor(-1);
 	    		e.target.blur();   
-
-				if (props.setSearchbarIsOpen) {
-					props.setSearchbarIsOpen(false);
-				}       
 
 	            break; 
 

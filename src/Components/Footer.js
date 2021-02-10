@@ -4,8 +4,8 @@ function Footer() {
     <footer className="wrapper">
       <div className="mail">
         <span>Почта: </span>
-        <a href="mailto:supervoid18@gmail.com" tabIndex={0}>
-          <span tabIndex={-1}>supervoid18@gmail.com</span>
+        <a href="mailto:cacs.ws@internet.ru" tabIndex={0}>
+          <span tabIndex={-1}>cacs.ws@internet.ru</span>
         </a>
       </div>
       <div className="copyright">
