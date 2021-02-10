@@ -422,7 +422,7 @@ const Timetable = (props) => {
                   <div className="teacher">{ formatTeacher(event.teacher) }</div> 
                   : null
                 }
-                <div className="label" style={{backgroundColor: event.color ? event.color : "var(--label-default-color)"}}>
+                <div className="label" style={{backgroundColor: (event.color >= 0) ? 'var(--color-' + (event.color % 12) + ')' : "var(--label-default-color)"}}>
                   <div>
                   { formatType(event.type) } — { formatPlace(event.place) }
                   </div>

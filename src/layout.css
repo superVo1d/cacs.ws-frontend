@@ -14,14 +14,6 @@
   --primary-acsent-color: #FF3366;
   --dark-acsent-color: #d02f55;
   --label-default-color: #666666;
-  --terfin-color: #f06eaa;
-  --bukh-color: #73cced;
-  --povek-color: #f68e56;
-  --econometrics-color: #8560a8;
-  --hist-color: #39b54a;
-  --digital-color: #827b00;
-  --isope-color: #0072bc;
-  --mfk-color: #f26c4f;
 
   --main-font-family: Helvetica;
   --logo-font-family: "Proxima Nova Bold", sans-serif;
@@ -30,6 +22,19 @@
   --label-font-size: .8rem;
   --header-font-size: 1.5rem;
   --logo-font-size: 2.2rem;
+
+  --color-0: #e93f34;
+  --color-1: #5eb95d;
+  --color-2: #2779bf;
+  --color-3: #53c2f3;
+  --color-4: #894e35;
+  --color-5: #ef8533;
+  --color-6: #8e479c;
+  --color-7: #f9cb33;
+  --color-8: #a1a2a3;
+  --color-9: #b3d445;
+  --color-10: #79cdcd;
+  --color-11: #abbee1;
 }
 
 @font-face {
