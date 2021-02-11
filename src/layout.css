@@ -154,7 +154,7 @@ footer.wrapper {
 
 .logo {
   font-size: var(--logo-font-size);
-  font-weight: 600;
+  font-weight: 500;
   font-family: var(--logo-font-family);
   color: var(--primary-color);
   border-radius: 24px;
@@ -763,6 +763,7 @@ footer {
   outline: none;
   border: none;
   padding: 0;
+  height: 46px;
   font-size: var(--main-font-size);
   color: var(--primary-color);
   background-color: transparent;
