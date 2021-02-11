@@ -35,6 +35,19 @@
   --color-9: #b3d445;
   --color-10: #79cdcd;
   --color-11: #abbee1;
+
+/*  --color-0: #e94363;
+  --color-1: #c3375b;
+  --color-2: #8a274f;
+  --color-3: #9e3fb1;
+  --color-4: #7b36a2;
+  --color-5: #4c298c;
+  --color-6: #673bb7;
+  --color-7: #5132a7;
+  --color-8: #322992;
+  --color-9: #3f51b5;
+  --color-10: #303e9f;
+  --color-11: #1a237e;*/
 }
 
 @font-face {
@@ -141,7 +154,7 @@ footer.wrapper {
 
 .logo {
   font-size: var(--logo-font-size);
-  font-weight: bold;
+  font-weight: 600;
   font-family: var(--logo-font-family);
   color: var(--primary-color);
   border-radius: 24px;
@@ -327,6 +340,7 @@ footer.wrapper {
 }
 
 .label {
+  //opacity: 0.8;
   font-size: var(--label-font-size);
   height: calc(var(--label-font-size) + 2px);
   color: var(--white-color);
@@ -469,6 +483,7 @@ footer {
 }
 
 .copyright {
+  font-size: var(--main-font-size);
   padding: 25px 0;
   text-align: center;
 }
@@ -569,25 +584,13 @@ footer {
 }
 
 .schedule-nav-scrolled {
-  //border-bottom: 1px solid var(--bg-light-color);
   z-index: 1;
-}
-
-.schedule-nav-scrolled > .dates > .date {
-  transition: padding .2s ease;
-  padding: 8px 0;
 }
 
 .schedule-nav-scrolled > .field > .btn {
   transition: margin .2s ease;
   margin-top: 0;
   margin-bottom: 0;
-}
-
-.schedule-nav-scrolled > .field {
-  transition: padding .2s ease;
-  padding-top: 8px;
-  padding-bottom: 8px;
 }
 
 .schedule-nav > .dates > .date {
@@ -664,11 +667,6 @@ footer {
 
 .row:nth-child(2n+3) {
   background-color: var(--bg-light-color);
-}
-
-.date.day {
-  padding: 25px 0;
-  position: relative;
 }
 
 .dates .date>div {
@@ -810,6 +808,7 @@ footer {
 }
 
 .option {
+  font-size: var(--main-font-size);
   text-decoration: none;
   display: block;
   padding: 0 15px;
