@@ -341,29 +341,32 @@ const TimetableMobile = (props) => {
 			</div>
 			<div className="timetable-mobile-wrapper">
 				<div className="timetable-scrollable">
-					{(props.schedule && Object.keys(groupedByDay).length) &&
+					{(props.schedule && Object.keys(groupedByDay).length) ?
 						Object.keys(groupedByDay).map((day, i) => {
 
-						let firstEvent = groupedByDay[day][0];
-						let d = new Date(firstEvent.year, ((firstEvent.month - 1) % 12 + 12) % 12, firstEvent.day);
+							let firstEvent = groupedByDay[day][0];
+							let d = new Date(Date.UTC(firstEvent.year, ((firstEvent.month - 1) % 12 + 12) % 12, firstEvent.day, 0, 0, 0));
 
-						const t = new Date();
-						const isToday = ((d.getDate() === t.getDate()) && (d.getMonth() === t.getMonth()) && (d.getFullYear() === t.getFullYear()))
+							const t = new Date();
+							const isToday = ((d.getDate() === t.getDate()) && (d.getMonth() === t.getMonth()) && (d.getFullYear() === t.getFullYear()))
 
-						return (
-							<section ref={el => daysRef.current[i] = el}
-									 key={i}>
-								<div className={ isToday ? "row day today" : "row day" }>
-									<div className="field time"></div>
-									<div className="date-info">
-										<span>{ d.toLocaleDateString('ru-RU', {weekday: 'long'}).capitalize() }</span>								
-										<br/>
-										<span><b>{ d.toLocaleDateString('ru-RU', {day: 'numeric', month: 'long'}) }</b></span>
+							return (
+								<section ref={el => daysRef.current[i] = el}
+										 key={i}>
+									<div className={ isToday ? "row day today" : "row day" }>
+										<div className="field time"></div>
+										<div className="date-info">
+											<span>{ d.toLocaleDateString('ru-RU', {weekday: 'long'}).capitalize() }</span>								
+											<br/>
+											<span><b>{ d.toLocaleDateString('ru-RU', {day: 'numeric', month: 'long'}) }</b></span>
+										</div>
 									</div>
-								</div>
-								{ renderEvents(groupedByDay[day], isToday) }
-							</section>
-						)})
+									{ renderEvents(groupedByDay[day], isToday) }
+								</section>
+							)
+						})
+						:
+						null
 					}				
 				</div>
 			</div>

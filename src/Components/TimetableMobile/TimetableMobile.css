@@ -13,10 +13,11 @@
 }
 
 .timetable-mobile-wrapper {
+  max-height: calc(100vh - 148px);
 	border-radius: 26px 26px 0 0;
 	margin-top: 20px;
 	flex-grow: 1;
-	overflow-y: hidden;
+	overflow: hidden;
 	padding: 20px 10px 0 10px;
 	background-color: var(--bg-color);
     -webkit-box-shadow: 0px 0px 12px -5px var(--shadow-color);
@@ -26,13 +27,20 @@
 
 .timetable-scrollable {
 	height: 100%;
-	width: 100%;
+  max-height: calc(100vh - 168px);
+  width: calc(100vw - 20px);
 	margin: 0;
 	overflow: scroll;
 	-webkit-overflow-scrolling: touch;
 	position: relative;
   scroll-behavior: smooth;
+  position:absolute;  
 }
+
+.timetable-scrollable > section:nth-last-child(-n+1) {
+  padding-bottom: 190px;
+}
+
 
 .timetable-scrollable > section {
 	position: relative;
