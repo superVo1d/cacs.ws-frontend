@@ -11,9 +11,9 @@ import DownloadButton from './DownloadButton';
 import Searchbar from './Searchbar';
 
 
-// import TimetableMobile from './TimetableMobile/TimetableMobile';
-// import NavbarMobile from './NavbarMobile/NavbarMobile';
-// import './../mobile.css';
+import TimetableMobile from './TimetableMobile/TimetableMobile';
+import NavbarMobile from './NavbarMobile/NavbarMobile';
+import './../mobile.css';
 
 const SchedulePage = (props) => {
 
@@ -21,7 +21,9 @@ const SchedulePage = (props) => {
 
 	const [userExists, setUserExists] = useState(false);
 	const [isLoaded, setIsLoaded] = useState(false);
-	const [name, setName] = useState();
+	const [name, setName] = useState(null);
+
+	const [schedule, setSchedule] = useState(null);
 
 	const isTabletOrMobile = useMediaQuery({
 	    query: '(max-width: 916px)'
@@ -79,6 +81,24 @@ const SchedulePage = (props) => {
 	// </div>
 
 	return (
+		isTabletOrMobile ?
+			<div className="mobile-wrapper">
+				<NavbarMobile>
+					<div className="btn-container">
+			        </div>
+					<div className="searchbar-container">
+						<Searchbar name={name}/>
+			        </div>			        
+					<div className="btn-container">
+						<NightmodeButton 
+			          		toggleTheme={ props.toggleTheme }
+			          		  isChecked={ props.isChecked }
+			        	/>
+			        </div>
+				</NavbarMobile>
+				<TimetableMobile schedule={ schedule } setSchedule={ setSchedule } />
+			</div>
+			:
 			<>
 				<Navbar>
 					<Searchbar name={name} />
@@ -100,7 +120,7 @@ const SchedulePage = (props) => {
 						</div>
 					) : userExists ? (
 						<main>
-				 			<Timetable />
+							<Timetable schedule={ schedule } setSchedule={ setSchedule } />
 							<Footer />
 						</main>
 					) : (

@@ -5,7 +5,7 @@ import WelcomePage from './WelcomePage';
 import PageNotFound from './PageNotFound';
 import SchedulePage from './SchedulePage';
 import NightmodeButton from './NightmodeButton';
-
+import HelpBox from './HelpBox';
 
 import '../layout.css';
 
@@ -80,6 +80,7 @@ const App = (props) => {
 			  		</PageNotFound>
 			  	</Route>
 			  	<Route path={`${process.env.PUBLIC_URL}/:id`}>
+			  		<HelpBox />
 			  		<SchedulePage toggleTheme={toggleTheme} isChecked={isChecked} />
 			  	</Route>
 		  	</Switch>

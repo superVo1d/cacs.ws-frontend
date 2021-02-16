@@ -1,4 +1,6 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
+import { useParams, useLocation } from 'react-router-dom';
+import { useMediaQuery } from 'react-responsive';
 
 import './TimetableMobile.css';
 import FormatTeacher from './../FormatTeacher';
@@ -6,6 +8,98 @@ import FormatTeacher from './../FormatTeacher';
 const TimetableMobile = (props) => {
 
 	const [week, setWeek] = useState(getWeekNumber(new Date()));
+	const [isLoaded, setIsLoaded] = useState(false);
+	const [activeDay, setActiveDay] = useState(null);
+
+	const daysRef = useRef([]);
+
+    const location = useLocation();
+    const {id} = useParams();
+
+	const timeStamps = ['9:00', '10:40', '12:20', '14:00', '15:40', '17:20', '19:00', '20:40'];
+	const days = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
+
+	useEffect(() => {
+		if (props.schedule) {
+			daysRef.current = daysRef.current.slice(0, props.schedule.length);
+		}
+
+		if (daysRef.current[0]) {
+			daysRef.current[0].scrollIntoView();
+		}
+    }, [props.schedule]);
+
+	useEffect(() => {
+
+		setIsLoaded(false);
+
+	    const apiPrefix = (!process.env.NODE_ENV || process.env.NODE_ENV === 'development') ? '' : 'api/';
+
+	    fetch(apiPrefix + 'schedules', {
+	        method: 'POST',
+	        headers: {
+	          'Content-Type': 'application/json'
+	        },
+	        body: JSON.stringify({
+	            "cacs_id": id.slice(1),
+	            "status": id[0],
+	            "week": week
+	        })
+	      })
+	    .then(res => res.json())
+	    .then((res) => {
+	        props.setSchedule(res.schedule);
+	        setIsLoaded(true);
+	      },
+	      (error) => {
+	        console.log(error);
+	      }
+	    );
+	  }, [week, location, id]);
+
+	 const formatType = (type) => {
+
+	    let title;
+
+	    switch (type.toLowerCase()){
+	      case 'сем': 
+	        title = 'Семинар';
+	        break;
+
+	      case 'лк': 
+	        title = 'Лекция';
+	        break;
+
+	      case 'кс': 
+	        title = 'Консультация';
+	        break;
+
+	      case 'экз': 
+	        title = 'Экзамен';
+	        break;
+
+	      case 'кнч': 
+	        title = 'Контактные часы';
+	        break;
+
+	      default:
+	        break;
+	    }
+
+	    return <span title={ title }>{ type }</span>;
+	  }
+
+	  const formatPlace = (place) => {
+	    //let exp = /zoom/g;
+
+	    // if (exp.test(place.toLowerCase())) {
+	    //   return 'Zoom';
+	    // } else {
+	    //   return place;
+	    // }
+
+	    return <span title={ place }><b>{ place }</b></span>;
+	  }
 
 	function getWeekNumber(d) {
 		// Copy date so don't modify original
@@ -150,6 +244,61 @@ const TimetableMobile = (props) => {
 
 	const daysOfWeek = getWeek();
 
+	String.prototype.capitalize = function() {
+	    return this.charAt(0).toUpperCase() + this.slice(1);
+	}
+
+	const groupBy = (xs, key) => {
+	  if (xs) {
+	  	return xs.reduce(function(rv, x) {
+		    (rv[x[key]] = rv[x[key]] || []).push(x);
+		    return rv;
+		  }, {});
+	  } else {
+	  	return [];
+	  }
+	};
+
+	const handleClickDay = (day) => {
+		//setActiveDay(day);
+
+		// const d = ((day - 1) % 7 + 7) % 7;
+
+		// if (daysRef.current[d]) {
+		// 	daysRef.current[d].scrollIntoView();
+		// }
+
+		//document.querySelector('.timetable-scrollable').scrollIntoView(0, daysRef.current[day].offsetTop);
+	}
+
+	const groupedByDay = groupBy(props.schedule, 'day');
+
+	function renderEvents(events, isToday) {
+
+		return events.map((event, i) => {
+			return (
+				<div className="row" key={i}>
+					<div className={isToday ? "field time today" : "field time" }>{ event.hours }:{ (event.minutes === 0) ? '00' : event.minutes }</div>
+					<div className={ isToday ? "date today" : "date" }>
+		              <div className="event">
+		                <div>
+		                  <b>{ event.name }</b>
+		                </div>
+		                {(event.teacher[0]) ? 
+		                  <div className="teacher">{ formatTeacher(event.teacher) }</div> 
+		                  : null
+		                }		
+		                <div className="label" style={{backgroundColor: (event.color >= 0) ? 'var(--color-' + (event.color % 12) + ')' : "var(--label-default-color)"}}>				
+					      <div>
+				      		{ formatType(event.type) } — { formatPlace(event.place) }
+					      </div>
+						</div>
+					  </div>
+					</div>
+				</div>);			
+		});
+	}
+
 	return (
 		<>
 			<div className="week-navigation">
@@ -168,9 +317,14 @@ const TimetableMobile = (props) => {
 
           				const isToday = ((day.getDate() === t.getDate()) && (day.getMonth() === t.getMonth()) && (day.getFullYear() === t.getFullYear()))
 
-          				return (<div className={isToday ? "date day today" : "date day" } key={i}>
+          				let isActive = day.getDay() === activeDay;
+
+          				return (
+          					<div className={ "date day" + (isToday ? " today" : "") + (isActive ? " active" : "") } 
+          					       onClick={ () => handleClickDay(day.getDay()) }
+          					           key={i}>
           						<div>
-          							<div>{ day.getDate() }</div>
+          							<div><b>{ day.getDate() }</b></div>
       							</div>
   							</div>)
           			})}
@@ -187,340 +341,30 @@ const TimetableMobile = (props) => {
 			</div>
 			<div className="timetable-mobile-wrapper">
 				<div className="timetable-scrollable">
-					<section>
-						<div className="row day">
-							<div className="field time"></div>
-							<div className="date-info">
-								<span>Понедельник,</span>
-								<br/>
-								<span><b>31 декабря</b></span>
-							</div>
-						</div>
-						<div className="row">
-							<div className="field time">9:00</div>
-							<div className="date"></div>
-						</div>
-						<div className="row">
-							<div className="field time">10:40</div>
-							<div className="date"></div>
-						</div>
-						<div className="row">
-							<div className="field time">10:40</div>
-							<div className="date">
-				              <div className="event">
-				                <div>
-				                  <b>Эконометрика-2</b>
-				                </div>
-				                <div className="teacher">Картаев Ф.С.</div> 
-				                <div className="label">
-				                  <div>
-				                  	Лекция — <b>ZOOM</b>
-				                  </div>
-				                </div>						
-			                  </div>						
-							</div>
-						</div>
-						<div className="row">
-							<div className="field time">12:20</div>
-							<div className="date"></div>
-						</div>
-						<div className="row">
-							<div className="field time">14:00</div>
-							<div className="date"></div>
-						</div>
-						<div className="row">
-							<div className="field time">15:40</div>
-							<div className="date"></div>
-						</div>
-						<div className="row">
-							<div className="field time">17:20</div>
-							<div className="date"></div>
-						</div>
-						<div className="row">
-							<div className="field time">19:00</div>
-							<div className="date"></div>
-						</div>
-						<div className="row">
-							<div className="field time">20:40</div>
-							<div className="date"></div>
-						</div>
-					</section>
-					<section>					
-						<div className="row day">
-							<div className="field time"></div>
-							<div className="date-info">
-								<span>Вторник,</span>
-								<br/>
-								<span><b>1 января</b></span>
-							</div>
-						</div>
-						<div className="row">
-							<div className="field time">9:00</div>
-							<div className="date"></div>
-						</div>
-						<div className="row">
-							<div className="field time">10:40</div>
-							<div className="date"></div>
-						</div>
-						<div className="row">
-							<div className="field time">10:40</div>
-							<div className="date"></div>
-						</div>
-						<div className="row">
-							<div className="field time">12:20</div>
-							<div className="date"></div>
-						</div>
-						<div className="row">
-							<div className="field time">14:00</div>
-							<div className="date"></div>
-						</div>
-						<div className="row">
-							<div className="field time">15:40</div>
-							<div className="date"></div>
-						</div>
-						<div className="row">
-							<div className="field time">17:20</div>
-							<div className="date"></div>
-						</div>
-						<div className="row">
-							<div className="field time">19:00</div>
-							<div className="date"></div>
-						</div>
-						<div className="row">
-							<div className="field time">20:40</div>
-							<div className="date"></div>
-						</div>		
-					</section>
-					<section>			
-						<div className="row day">
-							<div className="field time"></div>
-							<div className="date-info">
-								<span>Среда,</span>
-								<br/>
-								<span><b>2 января</b></span>
-							</div>
-						</div>
-						<div className="row">
-							<div className="field time">9:00</div>
-							<div className="date"></div>
-						</div>
-						<div className="row">
-							<div className="field time">10:40</div>
-							<div className="date"></div>
-						</div>
-						<div className="row">
-							<div className="field time">10:40</div>
-							<div className="date"></div>
-						</div>
-						<div className="row">
-							<div className="field time">12:20</div>
-							<div className="date"></div>
-						</div>
-						<div className="row">
-							<div className="field time">14:00</div>
-							<div className="date"></div>
-						</div>
-						<div className="row">
-							<div className="field time">15:40</div>
-							<div className="date"></div>
-						</div>
-						<div className="row">
-							<div className="field time">17:20</div>
-							<div className="date"></div>
-						</div>
-						<div className="row">
-							<div className="field time">19:00</div>
-							<div className="date"></div>
-						</div>
-						<div className="row">
-							<div className="field time">20:40</div>
-							<div className="date"></div>
-						</div>
-					</section>
-					<section>							
-						<div className="row day">
-							<div className="field time"></div>
-							<div className="date-info">
-								<span>Четверг,</span>
-								<br/>
-								<span><b>3 января</b></span>
-							</div>
-						</div>
-						<div className="row">
-							<div className="field time">9:00</div>
-							<div className="date"></div>
-						</div>
-						<div className="row">
-							<div className="field time">10:40</div>
-							<div className="date"></div>
-						</div>
-						<div className="row">
-							<div className="field time">10:40</div>
-							<div className="date"></div>
-						</div>
-						<div className="row">
-							<div className="field time">12:20</div>
-							<div className="date"></div>
-						</div>
-						<div className="row">
-							<div className="field time">14:00</div>
-							<div className="date"></div>
-						</div>
-						<div className="row">
-							<div className="field time">15:40</div>
-							<div className="date"></div>
-						</div>
-						<div className="row">
-							<div className="field time">17:20</div>
-							<div className="date"></div>
-						</div>
-						<div className="row">
-							<div className="field time">19:00</div>
-							<div className="date"></div>
-						</div>
-						<div className="row">
-							<div className="field time">20:40</div>
-							<div className="date"></div>
-						</div>	
-					</section>					
-					<section>
-						<div className="row day">
-							<div className="field time"></div>
-							<div className="date-info">
-								<span>Пятница,</span>
-								<br/>
-								<span><b>4 января</b></span>
-							</div>
-						</div>
-						<div className="row">
-							<div className="field time">9:00</div>
-							<div className="date"></div>
-						</div>
-						<div className="row">
-							<div className="field time">10:40</div>
-							<div className="date"></div>
-						</div>
-						<div className="row">
-							<div className="field time">10:40</div>
-							<div className="date"></div>
-						</div>
-						<div className="row">
-							<div className="field time">12:20</div>
-							<div className="date"></div>
-						</div>
-						<div className="row">
-							<div className="field time">14:00</div>
-							<div className="date"></div>
-						</div>
-						<div className="row">
-							<div className="field time">15:40</div>
-							<div className="date"></div>
-						</div>
-						<div className="row">
-							<div className="field time">17:20</div>
-							<div className="date"></div>
-						</div>
-						<div className="row">
-							<div className="field time">19:00</div>
-							<div className="date"></div>
-						</div>
-						<div className="row">
-							<div className="field time">20:40</div>
-							<div className="date"></div>
-						</div>	
-					</section>
-					<section>						
-						<div className="row day">
-							<div className="field time"></div>
-							<div className="date-info">
-								<span>Суббота,</span>
-								<br/>
-								<span><b>5 января</b></span>
-							</div>
-						</div>
-						<div className="row">
-							<div className="field time">9:00</div>
-							<div className="date"></div>
-						</div>
-						<div className="row">
-							<div className="field time">10:40</div>
-							<div className="date"></div>
-						</div>
-						<div className="row">
-							<div className="field time">10:40</div>
-							<div className="date"></div>
-						</div>
-						<div className="row">
-							<div className="field time">12:20</div>
-							<div className="date"></div>
-						</div>
-						<div className="row">
-							<div className="field time">14:00</div>
-							<div className="date"></div>
-						</div>
-						<div className="row">
-							<div className="field time">15:40</div>
-							<div className="date"></div>
-						</div>
-						<div className="row">
-							<div className="field time">17:20</div>
-							<div className="date"></div>
-						</div>
-						<div className="row">
-							<div className="field time">19:00</div>
-							<div className="date"></div>
-						</div>
-						<div className="row">
-							<div className="field time">20:40</div>
-							<div className="date"></div>
-						</div>	
-					</section>
-					<section>							
-						<div className="row day">
-							<div className="field time"></div>
-							<div className="date-info">
-								<span>Воскресенье,</span>
-								<br/>
-								<span><b>6 января</b></span>
-							</div>
-						</div>
-						<div className="row">
-							<div className="field time">9:00</div>
-							<div className="date"></div>
-						</div>
-						<div className="row">
-							<div className="field time">10:40</div>
-							<div className="date"></div>
-						</div>
-						<div className="row">
-							<div className="field time">10:40</div>
-							<div className="date"></div>
-						</div>
-						<div className="row">
-							<div className="field time">12:20</div>
-							<div className="date"></div>
-						</div>
-						<div className="row">
-							<div className="field time">14:00</div>
-							<div className="date"></div>
-						</div>
-						<div className="row">
-							<div className="field time">15:40</div>
-							<div className="date"></div>
-						</div>
-						<div className="row">
-							<div className="field time">17:20</div>
-							<div className="date"></div>
-						</div>
-						<div className="row">
-							<div className="field time">19:00</div>
-							<div className="date"></div>
-						</div>
-						<div className="row">
-							<div className="field time">20:40</div>
-							<div className="date"></div>
-						</div>			
-					</section>					
+					{(props.schedule && Object.keys(groupedByDay).length) &&
+						Object.keys(groupedByDay).map((day, i) => {
+
+						let firstEvent = groupedByDay[day][0];
+						let d = new Date(firstEvent.year, ((firstEvent.month - 1) % 12 + 12) % 12, firstEvent.day);
+
+						const t = new Date();
+						const isToday = ((d.getDate() === t.getDate()) && (d.getMonth() === t.getMonth()) && (d.getFullYear() === t.getFullYear()))
+
+						return (
+							<section ref={el => daysRef.current[i] = el}
+									 key={i}>
+								<div className={ isToday ? "row day today" : "row day" }>
+									<div className="field time"></div>
+									<div className="date-info">
+										<span>{ d.toLocaleDateString('ru-RU', {weekday: 'long'}).capitalize() }</span>								
+										<br/>
+										<span><b>{ d.toLocaleDateString('ru-RU', {day: 'numeric', month: 'long'}) }</b></span>
+									</div>
+								</div>
+								{ renderEvents(groupedByDay[day], isToday) }
+							</section>
+						)})
+					}				
 				</div>
 			</div>
 		</>

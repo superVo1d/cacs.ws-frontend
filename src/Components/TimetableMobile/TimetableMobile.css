@@ -8,6 +8,10 @@
   scrollbar-width: none;
 }
 
+.timetable-scrollable .row.day {
+  z-index: 1;
+}
+
 .timetable-mobile-wrapper {
 	border-radius: 26px 26px 0 0;
 	margin-top: 20px;
@@ -27,6 +31,7 @@
 	overflow: scroll;
 	-webkit-overflow-scrolling: touch;
 	position: relative;
+  scroll-behavior: smooth;
 }
 
 .timetable-scrollable > section {
@@ -45,8 +50,12 @@ section > .row.day {
 	border-right: none !important;
 }
 
-.row.day > .time {
-	border-right: 1px solid var(--bg-light-color) !important;
+.row.day.today > .time {
+	border-right: 1px solid var(--secondary-acsent-color) !important;
+}
+
+.row:nth-child(even) .field.today {
+  border-right: 1px solid var(--secondary-acsent-color) !important;
 }
 
 .timetable-scrollable > .date-info {
@@ -68,18 +77,19 @@ section > .row.day {
 
 .week-navigation > .dates {
 	flex-basis: 0;
-    flex-grow: 1;
-    display: flex;
-    text-align: center;
-    max-width: 350px;
+  flex-grow: 1;
+  display: flex;
+  text-align: center;
+  max-width: 350px;
+  width: calc(100% - 112px);
 }
 
 .week-navigation > .dates > .date {
 	min-height: auto;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    padding: 10px 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 10px 0;
 }
 
 .week-navigation > .dates .date>div {
@@ -112,7 +122,15 @@ section > .row.day {
   flex-flow: column;
 }
 
-@media (max-width: 576px) { 
+.row:nth-child(2n+3) .field.today {
+  background-color: var(--secondary-acsent-color);
+}
+
+.week-navigation .date.active:not(.today)>div>div {
+  background-color: var(--plug-color) !important;
+}
+
+/*@media (max-width: 576px) { 
   .week-navigation > .dates .date>div>div {
   	width: 22px;
   	height: 22px;
@@ -154,4 +172,4 @@ section > .row.day {
     height: var(--main-font-size);
     width: var(--main-font-size);
   }
-}
+}*/

@@ -1,4 +1,4 @@
-@media (max-width: 576px) { 
+@media screen and (max-width: 576px) { 
   :root {
     --header-font-size: 20px;
     --main-font-size: 15px;
@@ -7,10 +7,10 @@
   }
 }
 
-@media (max-width: 576px) { 
+/*@media screen and (max-width: 576px) { 
   .search {
-    line-height: 26px;
-    height: 26px;
+    line-height: 26px !important;
+    height: 26px !important;
     padding: 0 9px;
   }
 
@@ -22,6 +22,7 @@
 
   .search > input {
     width: calc(100% - 52px) !important;
+    height: 26px !important;
   }
 
   .nightmode-btn {
@@ -80,4 +81,4 @@
     min-height: 80px !important;
   }
 
-}
+}*/

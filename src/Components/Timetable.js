@@ -3,13 +3,13 @@ import Calendar from './Calendar';
 import FormatTeacher from './FormatTeacher';
 
 import { useParams, useLocation } from 'react-router-dom';
-import { useMediaQuery } from 'react-responsive'
+import { useMediaQuery } from 'react-responsive';
 
 const Timetable = (props) => {
 
   const [calendarIsOpen, setCalendarIsOpen] = useState(false);
 
-  const [schedule, setSchedule] = useState(null);
+  //const [schedule, setSchedule] = useState(null);
   const [isLoaded, setIsLoaded] = useState(false);
 
   const [refreshTime, setRefreshTime] = useState(null);
@@ -347,7 +347,7 @@ const Timetable = (props) => {
       })
     .then(res => res.json())
     .then((res) => {
-        setSchedule(res.schedule);
+        props.setSchedule(res.schedule);
         setRefreshTime(res.refresh_time);
         setIsLoaded(true);
       },
@@ -395,13 +395,13 @@ const Timetable = (props) => {
     if (isLoaded) {
 
       let eventId = Object
-        .keys(schedule)
-        .filter(i => schedule[i].day === day)
+        .keys(props.schedule)
+        .filter(i => props.schedule[i].day === day)
         .filter(i => {
-          let hours = schedule[i].hours;
-          let minutes = schedule[i].minutes; 
+          let hours = props.schedule[i].hours;
+          let minutes = props.schedule[i].minutes; 
 
-          if (schedule[i].minutes === 0) {
+          if (props.schedule[i].minutes === 0) {
             minutes = '00';
           }
 
@@ -410,7 +410,7 @@ const Timetable = (props) => {
 
       if (typeof eventId !== 'undefined') {
 
-        let event = schedule[eventId];
+        let event = props.schedule[eventId];
 
         return(
           <div className={ isToday ? "date today" : "date" } key={i}>
@@ -434,28 +434,9 @@ const Timetable = (props) => {
         return <div className={ isToday ? "date today" : "date" } key={i}></div>
       }
     } else {
-
       return (
         <div className={ isToday ? "date today" : "date" } key={i}></div>
       )
-
-      // Заглушка
-
-      // if (Math.random() > 0.5) {
-      //   return (
-      //     <div className={ isToday ? "date today" : "date" } key={i}>
-      //       <div className="event">
-      //         <div className="name plug"></div> 
-      //         <div className="teacher plug"></div> 
-      //         <div className="label plug"></div>
-      //       </div>        
-      //     </div>
-      //   )
-      // } else {
-      //   return (
-      //     <div className={ isToday ? "date today" : "date" } key={i}></div>
-      //   )
-      // }
     }
   }
   

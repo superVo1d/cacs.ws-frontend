@@ -9,6 +9,8 @@ const WelcomePage = (props) => {
 	// 	</h1>
 	// </div>
 
+	document.title = 'Узнать расписание';
+
 	const handleClick = () => {
 		document.location.reload();
 	}
