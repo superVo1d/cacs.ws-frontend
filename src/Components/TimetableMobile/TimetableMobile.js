@@ -17,7 +17,9 @@ const TimetableMobile = (props) => {
     const {id} = useParams();
 
 	const timeStamps = ['9:00', '10:40', '12:20', '14:00', '15:40', '17:20', '19:00', '20:40'];
-	const days = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
+	const days = ['Воскресенье', 'Понедельник', 'Вторник', 'Среда', 'Четверг', 'Пятница', 'Суббота'];
+
+	const months = ['января', 'февраля', 'апреля', 'мая', 'июня', 'июля', 'августа', 'сентября', 'октября', 'ноября', 'декабря'];
 
 	useEffect(() => {
 		if (props.schedule) {
@@ -356,9 +358,9 @@ const TimetableMobile = (props) => {
 									<div className={ isToday ? "row day today" : "row day" }>
 										<div className="field time"></div>
 										<div className="date-info">
-											<span>{ d.toLocaleDateString('ru-RU', {weekday: 'long'}).capitalize() }</span>								
+											<span>{ days[d.getDay()] }</span>								
 											<br/>
-											<span><b>{ d.toLocaleDateString('ru-RU', {day: 'numeric', month: 'long'}) }</b></span>
+											<span><b>{ firstEvent.day + ' ' + months[((firstEvent.month - 1) % 12 + 12) % 12] }</b></span>
 										</div>
 									</div>
 									{ renderEvents(groupedByDay[day], isToday) }
