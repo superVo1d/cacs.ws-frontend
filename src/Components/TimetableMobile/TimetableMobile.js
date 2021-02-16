@@ -347,7 +347,7 @@ const TimetableMobile = (props) => {
 						Object.keys(groupedByDay).map((day, i) => {
 
 							let firstEvent = groupedByDay[day][0];
-							let d = new Date(Date.UTC(firstEvent.year, ((firstEvent.month - 1) % 12 + 12) % 12, firstEvent.day, 0, 0, 0));
+							let d = new Date(firstEvent.year, ((firstEvent.month - 1) % 12 + 12) % 12, firstEvent.day, 0, 0, 0, 0, 0);
 
 							const t = new Date();
 							const isToday = ((d.getDate() === t.getDate()) && (d.getMonth() === t.getMonth()) && (d.getFullYear() === t.getFullYear()))

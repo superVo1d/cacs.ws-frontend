@@ -1,5 +1,6 @@
 import Searchbar from './Searchbar';
 import Footer from './Footer';
+import { useMediaQuery } from 'react-responsive';
 
 const WelcomePage = (props) => {
 
@@ -8,6 +9,10 @@ const WelcomePage = (props) => {
 	// 		Здесь можно узнать<br/>свое расписание.
 	// 	</h1>
 	// </div>
+
+	const isTabletOrMobile = useMediaQuery({
+	    query: '(max-width: 916px)'
+    })
 
 	document.title = 'Узнать расписание';
 
@@ -60,9 +65,9 @@ const WelcomePage = (props) => {
 	}
 
 	return (
-		<div className="welcome-page">
+		<div className={ isTabletOrMobile ? "welcome-page welcome-page-mobile" : "welcome-page" }>
 			<div className="main-container">
-				<div className="wrapper">
+				<div className="wrapper"> 
 					<div className="gif" 
 					         style={{ backgroundImage: 'url("' + setGif() + '")' }} 
 					       onClick={() => handleClick()}></div>

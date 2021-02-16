@@ -72,12 +72,7 @@ const App = (props) => {
 					<WelcomePage mode={ currentMode }/>
 				</Route>
 			  	<Route exact path={`${process.env.PUBLIC_URL}/error`}>
-			  		<PageNotFound>
-			      		<NightmodeButton 
-			          		toggleTheme={ toggleTheme }
-			          		  isChecked={ isChecked }
-			        	/>
-			  		</PageNotFound>
+			  		<PageNotFound toggleTheme={ toggleTheme } isChecked={ isChecked }/>
 			  	</Route>
 			  	<Route path={`${process.env.PUBLIC_URL}/:id`}>
 			  		<HelpBox />

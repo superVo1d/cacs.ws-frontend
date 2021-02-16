@@ -1330,3 +1330,36 @@ footer {
     transform: translateY(100%);
   }
 }
+
+.welcome-page.welcome-page-mobile .wrapper {
+  min-width: inherit;
+}
+
+.welcome-page.welcome-page-mobile .searchbar-container {
+  margin: 0 20px;
+}
+
+.welcome-page.welcome-page-mobile .footer-container .mail {
+  position: static;
+}
+
+.welcome-page.welcome-page-mobile .gif {
+  height: 125.51px;
+  width: 300px;
+}
+
+.error-page.error-page-mobile .error {
+  margin-top: 10vh;
+}
+
+.wrapper.error-page-mobile {
+  min-width: inherit;
+}
+
+.error-page.error-page-mobile .wrapper {
+  min-width: inherit;
+}
+
+.error-page.error-page-mobile .footer-container .mail {
+  position: static;
+}
