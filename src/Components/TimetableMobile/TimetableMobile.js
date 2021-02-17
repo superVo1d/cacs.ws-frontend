@@ -273,7 +273,19 @@ const TimetableMobile = (props) => {
 		//document.querySelector('.timetable-scrollable').scrollIntoView(0, daysRef.current[day].offsetTop);
 	}
 
+	function compareByTime( a, b ) {
+	  if ( a.hours < b.hours ){
+	    return -1;
+	  }
+	  if ( a.hours > b.hours ){
+	    return 1;
+	  }
+	  return 0;
+	}
+
 	const groupedByDay = groupBy(props.schedule, 'day');
+
+	Object.keys(groupedByDay).map(index => groupedByDay[index].sort(compareByTime));
 
 	function renderEvents(events, isToday) {
 

@@ -45,7 +45,7 @@ const App = (props) => {
 	    setCurrentMode('dark');
 	    setIsChecked(true);
 	  }
-	}, [])
+	}, []);
 
 	useLayoutEffect(() => {
 	  const theme = currentMode === 'light' ? lightTheme : darkTheme;
@@ -75,7 +75,6 @@ const App = (props) => {
 			  		<PageNotFound toggleTheme={ toggleTheme } isChecked={ isChecked }/>
 			  	</Route>
 			  	<Route path={`${process.env.PUBLIC_URL}/:id`}>
-			  		<HelpBox />
 			  		<SchedulePage toggleTheme={toggleTheme} isChecked={isChecked} />
 			  	</Route>
 		  	</Switch>

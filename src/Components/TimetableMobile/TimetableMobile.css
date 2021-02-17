@@ -138,6 +138,18 @@ section > .row.day {
   background-color: var(--plug-color) !important;
 }
 
+@media (max-width: 576px) { 
+  .week-navigation .date.day {
+    font-size: 1rem;
+  }
+
+  .week-navigation .date.day>div>div {
+    height: 26px;
+    width: 26px;
+    line-height: 26px;
+  }
+}
+
 /*@media (max-width: 576px) { 
   .week-navigation > .dates .date>div>div {
   	width: 22px;
