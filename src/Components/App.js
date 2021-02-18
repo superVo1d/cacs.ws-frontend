@@ -1,13 +1,13 @@
 import { useState, useLayoutEffect } from 'react';
 import { BrowserRouter, Route, Switch } from 'react-router-dom'
-import Analytics from 'react-router-ga';
-
 
 import WelcomePage from './WelcomePage';
 import PageNotFound from './PageNotFound';
 import SchedulePage from './SchedulePage';
 import NightmodeButton from './NightmodeButton';
 import HelpBox from './HelpBox';
+import { YMInitializer } from 'react-yandex-metrika';
+
 
 import '../layout.css';
 
@@ -70,17 +70,16 @@ const App = (props) => {
 	return (
 		<BrowserRouter basename={'/'}>
             <Switch>
-            	<Analytics id='G-5GMQ5GHPVB'>
-					<Route exact path={`${process.env.PUBLIC_URL}/`}>
-						<WelcomePage mode={ currentMode }/>
-					</Route>
-				  	<Route exact path={`${process.env.PUBLIC_URL}/error`}>
-				  		<PageNotFound toggleTheme={ toggleTheme } isChecked={ isChecked }/>
-				  	</Route>
-				  	<Route path={`${process.env.PUBLIC_URL}/:id`}>
-				  		<SchedulePage toggleTheme={toggleTheme} isChecked={isChecked} />
-				  	</Route>
-			  	</Analytics>
+				<Route exact path={`${process.env.PUBLIC_URL}/`}>
+					<WelcomePage mode={ currentMode }/>
+				</Route>
+			  	<Route exact path={`${process.env.PUBLIC_URL}/error`}>
+			  		<PageNotFound toggleTheme={ toggleTheme } isChecked={ isChecked }/>
+			  	</Route>
+			  	<Route path={`${process.env.PUBLIC_URL}/:id`}>
+			  		<SchedulePage toggleTheme={toggleTheme} isChecked={isChecked} />
+			  		<YMInitializer accounts={[72658840]} options={{webvisor: true}} />
+			  	</Route>
 		  	</Switch>
 	  	</BrowserRouter>
 	);
