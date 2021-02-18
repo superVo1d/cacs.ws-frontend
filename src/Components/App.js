@@ -1,5 +1,6 @@
-import { useState, useLayoutEffect } from 'react';
-import { BrowserRouter, Route, Switch } from 'react-router-dom'
+import { useState, useLayoutEffect, useEffect } from 'react';
+import { BrowserRouter, Route, Switch, useHistory } from 'react-router-dom'
+import ReactGA from "react-ga";
 
 import WelcomePage from './WelcomePage';
 import PageNotFound from './PageNotFound';
@@ -8,6 +9,8 @@ import NightmodeButton from './NightmodeButton';
 import HelpBox from './HelpBox';
 
 import '../layout.css';
+
+ReactGA.initialize('G-5GMQ5GHPVB');
 
 const lightTheme = {
 	'--bg-color': '#fff',
@@ -39,6 +42,17 @@ const App = (props) => {
 
 	const [currentMode, setCurrentMode] = useState('light');
 	const [isChecked, setIsChecked] = useState(false);
+
+	const history = useHistory();
+
+	useEffect(() => {
+		if (typeof history !== 'undefined') {
+			history.listen( window => {
+			  ReactGA.pageview(window.location.pathname + window.location.search);
+			  console.log('page=>',window.location.pathname);
+			});
+		}
+	}, [history]);
 
 	useLayoutEffect(() => {
 	  if (localStorage.getItem('mode') === 'dark') {

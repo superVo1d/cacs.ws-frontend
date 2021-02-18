@@ -44,7 +44,8 @@ const WelcomePage = (props) => {
   		'newfrenchwave',
   		'spaceodyssey',
   		'spaceodyssey2',
-  		'spaceodyssey3'
+  		'spaceodyssey3',
+  		'metropolis'
 	]
 
 	const setGif = () => {
