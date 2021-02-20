@@ -78,7 +78,7 @@ const App = (props) => {
 			  	</Route>
 			  	<Route path={`${process.env.PUBLIC_URL}/:id`}>
 			  		<SchedulePage toggleTheme={toggleTheme} isChecked={isChecked} />
-			  		<YMInitializer accounts={[72658840]} options={{webvisor: true}} />
+			  		<YMInitializer accounts={[72658840, 72746185]} options={{webvisor: true}} />
 			  	</Route>
 		  	</Switch>
 	  	</BrowserRouter>
