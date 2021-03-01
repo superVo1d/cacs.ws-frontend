@@ -263,14 +263,16 @@ const TimetableMobile = (props) => {
 	  }
 	};
 
-	const handleClickDay = (day) => {
-		//setActiveDay(day);
+	const handleClickDay = (date) => {
 
-		// const d = ((day - 1) % 7 + 7) % 7;
+		console.log(Object.keys(groupedByDay), date);
 
-		// if (daysRef.current[d]) {
-		// 	daysRef.current[d].scrollIntoView();
-		// }
+		const index = Object.keys(groupedByDay).indexOf(date.toString());
+
+		if (daysRef.current[index] && Object.keys(groupedByDay).includes(date.toString())) {
+			daysRef.current[index].scrollIntoView();
+			//setActiveDay(day);
+		}
 
 		//document.querySelector('.timetable-scrollable').scrollIntoView(0, daysRef.current[day].offsetTop);
 	}
@@ -335,12 +337,12 @@ const TimetableMobile = (props) => {
           				const t = new Date();
 
           				const isToday = ((day.getDate() === t.getDate()) && (day.getMonth() === t.getMonth()) && (day.getFullYear() === t.getFullYear()))
-
-          				let isActive = day.getDay() === activeDay;
+          				const isActive = day.getDay() === activeDay;
+          				const isClickable = Object.keys(groupedByDay).includes(day.getDate().toString());
 
           				return (
-          					<div className={ "date day" + (isToday ? " today" : "") + (isActive ? " active" : "") } 
-          					       onClick={ () => handleClickDay(day.getDay()) }
+          					<div className={ "date day" + (isToday ? " today" : "") + (isActive ? " active" : "") + (!isClickable ? " clickable" : "") } 
+          					       onClick={ () => handleClickDay(day.getDate()) }
           					           key={i}>
           						<div>
           							<div><b>{ day.getDate() }</b></div>
@@ -360,32 +362,35 @@ const TimetableMobile = (props) => {
 			</div>
 			<div className="timetable-mobile-wrapper">
 				<div className="timetable-scrollable">
-					{(props.schedule && Object.keys(groupedByDay).length) ?
-						Object.keys(groupedByDay).map((day, i) => {
+					{ isLoaded ? (
+						(Object.keys(groupedByDay).length > 0) ?
+							Object.keys(groupedByDay).map((day, i) => {
 
-							let firstEvent = groupedByDay[day][0];
-							let d = new Date(firstEvent.year, ((firstEvent.month - 1) % 12 + 12) % 12, firstEvent.day, 0, 0, 0, 0, 0);
+								let firstEvent = groupedByDay[day][0];
+								let d = new Date(firstEvent.year, firstEvent.month, firstEvent.day, 0, 0, 0, 0, 0);
 
-							const t = new Date();
-							const isToday = ((d.getDate() === t.getDate()) && (d.getMonth() === t.getMonth()) && (d.getFullYear() === t.getFullYear()))
+								const t = new Date();
+								const isToday = ((d.getDate() === t.getDate()) && (d.getMonth() === t.getMonth()) && (d.getFullYear() === t.getFullYear()))
 
-							return (
-								<section ref={el => daysRef.current[i] = el}
-										 key={i}>
-									<div className={ isToday ? "row day today" : "row day" }>
-										<div className="field time"></div>
-										<div className="date-info">
-											<span>{ days[d.getDay()] }</span>								
-											<br/>
-											<span><b>{ firstEvent.day + ' ' + months[((firstEvent.month - 1) % 12 + 12) % 12] }</b></span>
+								return (
+									<section ref={el => daysRef.current[i] = el}
+											 key={i}>
+										<div className={ isToday ? "row day today" : "row day" }>
+											<div className="field time"></div>
+											<div className="date-info">
+												<span>{ days[d.getDay()] }</span>								
+												<br/>
+												<span><b>{ firstEvent.day + ' ' + months[firstEvent.month] }</b></span>
+											</div>
 										</div>
-									</div>
-									{ renderEvents(groupedByDay[day], isToday) }
-								</section>
-							)
-						})
-						:
-						null
+										{ renderEvents(groupedByDay[day], isToday) }
+									</section>
+								)
+							})
+							:
+							<div className="no-schedule">На этой неделе в расписании нет пар</div>
+						)
+						: <div className="loader"></div>
 					}				
 				</div>
 			</div>

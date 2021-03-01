@@ -37,9 +37,9 @@
   position:absolute;  
 }
 
-.timetable-scrollable > section:nth-last-child(-n+1) {
+/*.timetable-scrollable > section:nth-last-child(-n+1) {
   padding-bottom: 190px;
-}
+}*/
 
 
 .timetable-scrollable > section {
@@ -114,12 +114,18 @@ section > .row.day {
   width: 30px;
   height: 30px;
   line-height: 30px;
+  cursor: default;
+  user-select: none;
 }
 
 .week-navigation > .dates .today>div>div {
   font-weight: bold;
   color: var(--white-color);
   background-color: var(--primary-acsent-color);
+}
+
+.week-navigation > .dates .clickable {
+  color: var(--bg-light-color);
 }
 
 .week-navigation > .btn-container {
@@ -138,6 +144,29 @@ section > .row.day {
   background-color: var(--plug-color) !important;
 }
 
+.week-navigation .date:not(.clickable)>div>div {
+  cursor: pointer;
+}
+
+.timetable-scrollable .no-schedule {
+  color: var(--button-color);
+  font-size: var(--main-font-size);
+  padding: 20px 30px;
+  box-sizing: content-box;
+  position: absolute;
+  width: calc(100% - 60px);
+  top: 50%;
+  -ms-transform: translateY(-50%);
+  transform: translateY(-50%);
+  text-align: center;
+}
+
+.timetable-scrollable .loader {
+  margin: auto;
+  position: absolute;
+  top: 0; left: 0; bottom: 0; right: 0;
+}
+
 @media (max-width: 576px) { 
   .week-navigation .date.day {
     font-size: 1rem;
@@ -149,47 +178,3 @@ section > .row.day {
     line-height: 26px;
   }
 }
-
-/*@media (max-width: 576px) { 
-  .week-navigation > .dates .date>div>div {
-  	width: 22px;
-  	height: 22px;
-  	line-height: 22px;
-  }
-
-  .timetable-mobile-wrapper {
-    border-radius: 13px 13px 0 0 !important;
-  }
-
-  .week-navigation > .btn-container > .btn {
-  	height: 22px;
-  	width: 22px;
-  }
-
-  .week-navigation > .btn-container {
-    width: 22px;
-    height: 22px;
-  }
-
-  .week-navigation > .btn-container > .btn > div {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-  	height: 22px !important;
-  	width: 22px !important;
-  }
-
-  .week-navigation span.prev-icon {
-    top: 0px;
-    right: 0px;
-    height: var(--main-font-size);
-    width: var(--main-font-size);
-  }
-
-  .week-navigation span.next-icon {
-    top: 0px;
-    right: 0px;
-    height: var(--main-font-size);
-    width: var(--main-font-size);
-  }
-}*/
