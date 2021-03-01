@@ -265,8 +265,6 @@ const TimetableMobile = (props) => {
 
 	const handleClickDay = (date) => {
 
-		console.log(Object.keys(groupedByDay), date);
-
 		const index = Object.keys(groupedByDay).indexOf(date.toString());
 
 		if (daysRef.current[index] && Object.keys(groupedByDay).includes(date.toString())) {

@@ -5,16 +5,14 @@ import FormatTeacher from './FormatTeacher';
 import { useParams, useLocation } from 'react-router-dom';
 import { useMediaQuery } from 'react-responsive';
 
-let seedrandom = require('seedrandom');
+import { hyphenateSync } from "hyphen/ru";
 
+let seedrandom = require('seedrandom');
 
 const Timetable = (props) => {
 
   const [calendarIsOpen, setCalendarIsOpen] = useState(false);
-
-  //const [schedule, setSchedule] = useState(null);
   const [isLoaded, setIsLoaded] = useState(false);
-
   const [refreshTime, setRefreshTime] = useState(null);
 
   const [week, setWeek] = useState(getWeekNumber(new Date()));
@@ -383,8 +381,6 @@ const Timetable = (props) => {
 
   const weekDates = getWeek();
 
-  console.log(weekDates);
-
   const renderEvent = (d, time, i) => {
 
     let today = [new Date().getDate(), new Date().getMonth(), new Date().getFullYear()];
@@ -426,7 +422,7 @@ const Timetable = (props) => {
           <div className={ isToday ? "date today" : "date" } key={i}>
               <div className="event">
                 <div title={ event.name.replace(/\s+/g, ' ').trim() } >
-                  <b>{event.short_name}</b>
+                  <b>{ hyphenateSync(event.short_name) }</b>
                 </div>
                 {(event.teacher[0]) ? 
                   <div className="teacher">{ formatTeacher(event.teacher) }</div> 

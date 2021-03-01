@@ -50,7 +50,7 @@ const SchedulePage = (props) => {
 	    	setUserExists(true);
 	    	setIsLoaded(true);
 
-			setName(res.last_name + ' ' + res.name + ' ' + res.patronymic);
+			setName(res.last_name + ' ' + res.name + (res.patronymic.length !== 1 ? (' ' + res.patronymic) : ''));
 
 			document.title = 'Расписание / ' + res.last_name + ' ' + res.name;
 
@@ -62,23 +62,6 @@ const SchedulePage = (props) => {
 		});
 
 	}, [id]);
-
-	// <div className="mobile-wrapper">
-	// 	<NavbarMobile>
-	// 		<div className="btn-container">
-	//         </div>
-	// 		<div className="searchbar-container">
-	// 			<Searchbar name={name}/>
-	//         </div>			        
-	// 		<div className="btn-container">
-	// 			<NightmodeButton 
-	//           		toggleTheme={ props.toggleTheme }
-	//           		  isChecked={ props.isChecked }
-	//         	/>
-	//         </div>
-	// 	</NavbarMobile>
-	// 	<TimetableMobile />
-	// </div>
 
 	return (
 		isTabletOrMobile ?
