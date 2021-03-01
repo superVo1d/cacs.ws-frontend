@@ -5,6 +5,9 @@ import FormatTeacher from './FormatTeacher';
 import { useParams, useLocation } from 'react-router-dom';
 import { useMediaQuery } from 'react-responsive';
 
+let seedrandom = require('seedrandom');
+
+
 const Timetable = (props) => {
 
   const [calendarIsOpen, setCalendarIsOpen] = useState(false);
@@ -412,6 +415,8 @@ const Timetable = (props) => {
 
         let event = props.schedule[eventId];
 
+        seedrandom(event.name, { global: true });
+
         return(
           <div className={ isToday ? "date today" : "date" } key={i}>
               <div className="event">
@@ -422,7 +427,7 @@ const Timetable = (props) => {
                   <div className="teacher">{ formatTeacher(event.teacher) }</div> 
                   : null
                 }
-                <div className="label" style={{backgroundColor: (event.color >= 0) ? 'var(--color-' + (event.color % 12) + ')' : "var(--label-default-color)"}}>
+                <div className="label" style={{backgroundColor: 'var(--color-' + ((Math.trunc(Math.random() * 70)) % 12) + ')'}}>
                   <div>
                   { formatType(event.type) } — { formatPlace(event.place) }
                   </div>

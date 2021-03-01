@@ -5,6 +5,8 @@ import { useMediaQuery } from 'react-responsive';
 import './TimetableMobile.css';
 import FormatTeacher from './../FormatTeacher';
 
+let seedrandom = require('seedrandom');
+
 const TimetableMobile = (props) => {
 
 	const [week, setWeek] = useState(getWeekNumber(new Date()));
@@ -290,6 +292,9 @@ const TimetableMobile = (props) => {
 	function renderEvents(events, isToday) {
 
 		return events.map((event, i) => {
+
+			seedrandom(event.name, { global: true });
+
 			return (
 				<div className="row" key={i}>
 					<div className={isToday ? "field time today" : "field time" }>{ event.hours }:{ (event.minutes === 0) ? '00' : event.minutes }</div>
@@ -302,7 +307,7 @@ const TimetableMobile = (props) => {
 		                  <div className="teacher">{ formatTeacher(event.teacher) }</div> 
 		                  : null
 		                }		
-		                <div className="label" style={{backgroundColor: (event.color >= 0) ? 'var(--color-' + (event.color % 12) + ')' : "var(--label-default-color)"}}>				
+		                <div className="label" style={{backgroundColor: 'var(--color-' + ((Math.trunc(Math.random() * 70)) % 12) + ')'}}>
 					      <div>
 				      		{ formatType(event.type) } — { formatPlace(event.place) }
 					      </div>
