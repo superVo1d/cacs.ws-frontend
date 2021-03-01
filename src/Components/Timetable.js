@@ -285,31 +285,32 @@ const Timetable = (props) => {
     let title;
 
     switch (type.toLowerCase()){
-      case 'сем': 
-        title = 'Семинар';
+      case 'семинар': 
+        title = 'Сем';
         break;
 
-      case 'лк': 
-        title = 'Лекция';
+      case 'лекция': 
+        title = 'Лк';
         break;
 
-      case 'кс': 
-        title = 'Консультация';
+      case 'консультация': 
+        title = 'Кс';
         break;
 
-      case 'экз': 
-        title = 'Экзамен';
+      case 'Экзамен': 
+        title = 'Экз';
         break;
 
-      case 'кнч': 
-        title = 'Контактные часы';
+      case 'контактные часы': 
+        title = 'Кнч';
         break;
 
       default:
+        title = type;
         break;
     }
 
-    return <span title={ title }>{ type }</span>;
+    return <span title={ type }>{ title }</span>;
   }
 
   const formatPlace = (place) => {
@@ -379,6 +380,10 @@ const Timetable = (props) => {
       }
     });
   }
+
+  const weekDates = getWeek();
+
+  console.log(weekDates);
 
   const renderEvent = (d, time, i) => {
 
@@ -497,7 +502,7 @@ const Timetable = (props) => {
             }
           </div>
           <div className="dates">
-          { getWeek().map((day, i) => {
+          { weekDates.map((day, i) => {
 
               let t = new Date();
 
