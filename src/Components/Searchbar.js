@@ -58,10 +58,13 @@ const Searchbar = (props) => {
 	}
 
 	const handleOnFocus = () => {
+		if (!display) {
+			inputRef.current.selectionStart = inputRef.current.value[0];
+        	inputRef.current.selectionEnd = inputRef.current.value.length;
+		}
+
 		setDisplay(true);
 		inputRef.current.focus();
-        //inputRef.current.selectionStart = inputRef.current.value.length;
-        //inputRef.current.selectionEnd = inputRef.current.value.length;
 	}
 
 	const handleOnMouseDown = (e) => {

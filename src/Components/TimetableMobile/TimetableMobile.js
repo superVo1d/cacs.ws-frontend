@@ -31,7 +31,12 @@ const TimetableMobile = (props) => {
 		if (daysRef.current[0]) {
 			daysRef.current[0].scrollIntoView();
 		}
-    }, [props.schedule]);
+
+		if (week === getWeekNumber(new Date())) {
+			handleClickDay(new Date().getDate())
+		}
+
+    }, [props.schedule, daysRef.current]);
 
 	useEffect(() => {
 
@@ -63,31 +68,11 @@ const TimetableMobile = (props) => {
 
 	 const formatType = (type) => {
 
-	    let title;
+	 	let title = type;
 
-	    switch (type.toLowerCase()){
-	      case 'сем': 
-	        title = 'Семинар';
-	        break;
-
-	      case 'лк': 
-	        title = 'Лекция';
-	        break;
-
-	      case 'кс': 
-	        title = 'Консультация';
-	        break;
-
-	      case 'экз': 
-	        title = 'Экзамен';
-	        break;
-
-	      case 'кнч': 
-	        title = 'Контактные часы';
-	        break;
-
-	      default:
-	        break;
+	    if (type.toLowerCase() === 'лаб.работа') {
+	    	title = 'Лабораторная работа'
+	    	type = 'Лаб. работа'
 	    }
 
 	    return <span title={ title }>{ type }</span>;

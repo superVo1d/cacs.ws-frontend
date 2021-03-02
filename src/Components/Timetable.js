@@ -295,12 +295,16 @@ const Timetable = (props) => {
         title = 'Кс';
         break;
 
-      case 'Экзамен': 
+      case 'экзамен': 
         title = 'Экз';
         break;
 
       case 'контактные часы': 
         title = 'Кнч';
+        break;
+
+      case 'лаб.работа': 
+        title = 'Лаб';
         break;
 
       default:

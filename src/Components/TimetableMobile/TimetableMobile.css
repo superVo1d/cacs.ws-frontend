@@ -34,7 +34,7 @@
 	-webkit-overflow-scrolling: touch;
 	position: relative;
   scroll-behavior: smooth;
-  position:absolute;  
+  position: absolute;  
 }
 
 /*.timetable-scrollable > section:nth-last-child(-n+1) {
@@ -146,6 +146,10 @@ section > .row.day {
 
 .week-navigation .date:not(.clickable)>div>div {
   cursor: pointer;
+}
+
+.week-navigation .date:not(.clickable):not(.today)>div:hover>div {
+  background-color: var(--plug-color);
 }
 
 .timetable-scrollable .no-schedule {
