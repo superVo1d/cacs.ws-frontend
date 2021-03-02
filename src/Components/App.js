@@ -4,8 +4,6 @@ import { BrowserRouter, Route, Switch } from 'react-router-dom'
 import WelcomePage from './WelcomePage';
 import PageNotFound from './PageNotFound';
 import SchedulePage from './SchedulePage';
-import NightmodeButton from './NightmodeButton';
-import HelpBox from './HelpBox';
 import { YMInitializer } from 'react-yandex-metrika';
 
 

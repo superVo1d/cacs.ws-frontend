@@ -18,34 +18,34 @@ const Calendar = (props) => {
 		setCurrentYear(props.year);
 	}, [props.year]);
 
-	const getWeeksInMonth = () => {
-		let month = currentMonth;
-		let year = currentYear;
+	// const getWeeksInMonth = () => {
+	// 	let month = currentMonth;
+	// 	let year = currentYear;
 
-		var weeks = [],
+	// 	var weeks = [],
 
-		firstDate = new Date(year, month, 1),
-		lastDate = new Date(year, month + 1, 0), 
-		numberOfDays = lastDate.getDate();
+	// 	firstDate = new Date(year, month, 1),
+	// 	lastDate = new Date(year, month + 1, 0), 
+	// 	numberOfDays = lastDate.getDate();
 
-		var start = 1;
-		var end = 7 - firstDate.getDay();
+	// 	var start = 1;
+	// 	var end = 7 - firstDate.getDay();
 
-		while (start <= numberOfDays) {
-			weeks.push({
-				start: start,
-				end: end
-			});
+	// 	while (start <= numberOfDays) {
+	// 		weeks.push({
+	// 			start: start,
+	// 			end: end
+	// 		});
 
-			start = end + 1;
-			end = end + 7;
+	// 		start = end + 1;
+	// 		end = end + 7;
 
-			if (end > numberOfDays)
-			   end = numberOfDays;    
-		}       
+	// 		if (end > numberOfDays)
+	// 		   end = numberOfDays;    
+	// 	}       
 
-		return weeks;
-	}   
+	// 	return weeks;
+	// }   
 
 	const getDates = () => {
 		

@@ -3,11 +3,6 @@
   display: none;
 }
 
-.timetable-scrollable {
-  -ms-overflow-style: none;
-  scrollbar-width: none;
-}
-
 .timetable-scrollable .row.day {
   z-index: 1;
 }
@@ -29,12 +24,17 @@
 	height: 100%;
   max-height: calc(100vh - 168px);
   width: calc(100vw - 20px);
-	margin: 0;
+  max-width: 500px;
+  right: 0;
+  left: 0;
+	margin: auto;
 	overflow: scroll;
 	-webkit-overflow-scrolling: touch;
 	position: relative;
   scroll-behavior: smooth;
   position: absolute;  
+  -ms-overflow-style: none;
+  scrollbar-width: none;
 }
 
 /*.timetable-scrollable > section:nth-last-child(-n+1) {

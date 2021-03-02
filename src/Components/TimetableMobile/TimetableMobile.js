@@ -1,6 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { useParams, useLocation } from 'react-router-dom';
-import { useMediaQuery } from 'react-responsive';
 
 import './TimetableMobile.css';
 import FormatTeacher from './../FormatTeacher';
@@ -28,15 +27,17 @@ const TimetableMobile = (props) => {
 			daysRef.current = daysRef.current.slice(0, props.schedule.length);
 		}
 
+    }, [props.schedule]);
+
+    useEffect(() => {
 		if (daysRef.current[0]) {
 			daysRef.current[0].scrollIntoView();
 		}
 
-		if (week === getWeekNumber(new Date())) {
+    	if (week === getWeekNumber(new Date())) {
 			handleClickDay(new Date().getDate())
 		}
-
-    }, [props.schedule, daysRef.current]);
+	}, [daysRef.current]);    	
 
 	useEffect(() => {
 
