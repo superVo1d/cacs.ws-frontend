@@ -17,10 +17,8 @@ const TimetableMobile = (props) => {
     const location = useLocation();
     const {id} = useParams();
 
-	const timeStamps = ['9:00', '10:40', '12:20', '14:00', '15:40', '17:20', '18:55', '20:30'];
-	const days = ['Воскресенье', 'Понедельник', 'Вторник', 'Среда', 'Четверг', 'Пятница', 'Суббота'];
-
 	const months = ['января', 'февраля', 'марта', 'апреля', 'мая', 'июня', 'июля', 'августа', 'сентября', 'октября', 'ноября', 'декабря'];
+    const days = ['Воскресенье', 'Понедельник', 'Вторник', 'Среда', 'Четверг', 'Пятница', 'Суббота'];
 
 	useEffect(() => {
 		if (props.schedule) {
@@ -71,23 +69,25 @@ const TimetableMobile = (props) => {
 
 	 	let title = type;
 
-	    if (type.toLowerCase() === 'лаб.работа') {
-	    	title = 'Лабораторная работа'
+	    switch(type.toLowerCase()) {
+		  case 'лаб.работа':
+		  	title = 'Лабораторная работа'
 	    	type = 'Лаб. работа'
-	    }
+		    break;
+
+		  case 'конт.часы':
+		  	title = 'Контактные часы'
+	    	type = 'Конт. часы'
+		    break;
+
+		  default:
+		    break;
+		}
 
 	    return <span title={ title }>{ type }</span>;
 	  }
 
 	  const formatPlace = (place) => {
-	    //let exp = /zoom/g;
-
-	    // if (exp.test(place.toLowerCase())) {
-	    //   return 'Zoom';
-	    // } else {
-	    //   return place;
-	    // }
-
 	    return <span title={ place }><b>{ place }</b></span>;
 	  }
 
@@ -212,6 +212,15 @@ const TimetableMobile = (props) => {
 		return <FormatTeacher teachers={ teachers }/>
 	}
 
+	const formatTime = (hours, minutes) => {
+		let today = new Date();
+		let d = new Date(today.getFullYear(), today.getMonth(), today.getDate(), hours, minutes, 0)
+
+		d.setTime(d.getTime() - d.getTimezoneOffset() * 60 * 1000 - 180 * 60 * 1000);
+
+		return d.toLocaleString('ru-RU', { hour: 'numeric', minute: '2-digit' });
+	}
+
 	const handleClickPrevWeek = (prev) => {
 		setWeek(prev => {
 		  if (prev === 1) {
@@ -283,7 +292,7 @@ const TimetableMobile = (props) => {
 
 			return (
 				<div className="row" key={i}>
-					<div className={isToday ? "field time today" : "field time" }>{ event.hours }:{ (event.minutes === 0) ? '00' : event.minutes }</div>
+					<div className={isToday ? "field time today" : "field time" }>{ formatTime(event.hours, event.minutes) }</div>
 					<div className={ isToday ? "date today" : "date" }>
 		              <div className="event">
 		                <div>

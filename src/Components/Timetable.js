@@ -28,6 +28,17 @@ const Timetable = (props) => {
   const daysOfWeek = ['Пн', 'Вт', 'Ср', 'Чт', 'Пт', 'Сб', 'Вс'];
   const timeStamps = ['9:00', '10:40', '12:20', '14:00', '15:40', '17:20', '18:55', '20:30'];
 
+  const localTimeStamps = new Array(timeStamps.length)
+    .fill()
+    .map((el, i) => {
+      let today = new Date();
+      let d = new Date(today.getFullYear(), today.getMonth(), today.getDate(), parseInt(timeStamps[i].split(':')[0]), parseInt(timeStamps[i].split(':')[1]), 0)
+
+      d.setTime(d.getTime() - d.getTimezoneOffset() * 60 * 1000 - 180 * 60 * 1000);
+
+      return d.toLocaleString('ru-RU', { hour: 'numeric', minute: '2-digit' });
+    });
+
   const [ isScrolled, setIsScrolled ] = useState(() => {
     if (window.scrollY === 0){
       return false;
@@ -303,8 +314,14 @@ const Timetable = (props) => {
         title = 'Кнч';
         break;
 
+      case 'конт.часы':
+        title = 'Кнч';
+        type = 'Контактные часы'
+        break;
+
       case 'лаб.работа': 
         title = 'Лаб';
+        type = 'Лаюораторная работа';
         break;
 
       default:
@@ -454,7 +471,7 @@ const Timetable = (props) => {
     return(timeStamps.map((time, i) => {
       return(
         <div className="row" key={i}>
-          <div className="field time">{ time }</div>
+          <div className="field time">{ localTimeStamps[i] }</div>
             <div className="events">
             { getWeek().map((day, i) => {
               return renderEvent(day, time, i);
