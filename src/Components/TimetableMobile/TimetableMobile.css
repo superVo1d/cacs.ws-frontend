@@ -24,7 +24,7 @@
 .timetable-scrollable {
 	height: 100%;
   background-color: var(--bg-color);
-  max-height: calc(100% - 148px);
+  max-height: calc(100% - 168px);
   padding: 0 10px;
   right: 0;
   left: 0;
@@ -200,5 +200,9 @@ section > .row.day {
 
   .week-navigation .btn-container {
     padding: 0;
+  }
+
+  .timetable-scrollable {
+    max-height: calc(100% - 148px);
   }
 }
