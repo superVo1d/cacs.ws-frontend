@@ -334,7 +334,7 @@ const TimetableMobile = (props) => {
           				const isClickable = Object.keys(groupedByDay).includes(day.getDate().toString());
 
           				return (
-          					<div className={ "date day" + (isToday ? " today" : "") + (isActive ? " active" : "") + (!isClickable ? " clickable" : "") } 
+          					<div className={ "date day" + (isToday ? " today" : "") + (isActive ? " active" : "") + (!isClickable ? " non-clickable" : "") } 
           					       onClick={ () => handleClickDay(day.getDate()) }
           					           key={i}>
           						<div>
@@ -383,7 +383,8 @@ const TimetableMobile = (props) => {
 							:
 							<div className="no-schedule">На этой неделе в расписании нет пар</div>
 						)
-						: <div className="loader"></div>
+						: 
+						<div className="loader"></div>
 					}				
 				</div>
 			</div>

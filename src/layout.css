@@ -63,6 +63,11 @@ body {
   transition: background .1s, color 0s;
 }
 
+input[type=text], input[type=button] {
+  -webkit-appearance: none;
+  -webkit-border-radius: 0;
+}
+
 a {
   color: inherit;
   outline: none !important;
@@ -93,16 +98,17 @@ button {
   cursor: inherit;
 }
 
-button:hover {
-  background: transparent;
-  box-shadow: 0px 0px 0px transparent;
-  border: 0px solid transparent;
-  text-shadow: 0px 0px 0px transparent;
+@media (hover: hover) {
+  button:hover {
+    background: transparent;
+    box-shadow: 0px 0px 0px transparent;
+    border: 0px solid transparent;
+    text-shadow: 0px 0px 0px transparent;
+  }
 }
 
 button:active {
   outline: none;
-  //border: none;
 }
 
 button:focus {
@@ -132,6 +138,7 @@ button:focus {
 .mobile-wrapper {
   display: flex;
   height: 100vh;
+  height: -webkit-fill-available;  
   flex-flow: column;
 }
 
@@ -154,8 +161,11 @@ footer.wrapper {
   user-select: none;
 }
 
-.logo:hover {
-  background-color: var(--bg-light-color);
+
+@media (hover: hover) {
+  .logo:hover {
+    background-color: var(--bg-light-color);
+  }
 }
 
 .logo>div {
@@ -177,9 +187,12 @@ footer.wrapper {
   box-shadow: 0 0 0 2pt var(--bg-light-color);
 } 
 
-.logo:hover:active {
-  background-color: var(--plug-color);
-  transition-delay: 0;
+
+@media (hover: hover) {
+  .logo:hover:active {
+    background-color: var(--plug-color);
+    transition-delay: 0;
+  }
 }
 
 .navbar {
@@ -229,8 +242,11 @@ footer.wrapper {
   display: inline-block;
 }
 
-.download-btn:hover {
-  background-color: var(--bg-light-color);  
+
+@media (hover: hover) {
+  .download-btn:hover {
+    background-color: var(--bg-light-color);  
+  }
 }
 
 .download-btn:focus, .download-btn>div:focus {
@@ -248,6 +264,7 @@ footer.wrapper {
 }
 
 .nightmode-btn {
+  -webkit-tap-highlight-color: rgba(0,0,0,0);
   float: left;
   border-radius: 23px;
   height: 46px;
@@ -269,8 +286,11 @@ footer.wrapper {
   font-size: 20px;
 }
 
-.nightmode-btn:hover {
-  background-color: var(--bg-light-color);  
+
+@media (hover: hover) {
+  .nightmode-btn:hover {
+    background-color: var(--bg-light-color);  
+  }
 }
 
 .nightmode-btn>.nightmode-icon {
@@ -299,9 +319,12 @@ footer.wrapper {
   user-select: none;
 }
 
-.btn.refresh:hover > div > .refresh-icon {
-  transform: rotate(180deg);
+@media (hover: hover) {
+  .btn.refresh:hover > div > .refresh-icon {
+    transform: rotate(180deg);
+  }
 }
+
 
 .btn.refresh:focus > div > .refresh-icon {
   transform: rotate(180deg);
@@ -327,9 +350,7 @@ footer.wrapper {
 }
 
 .label {
-  //opacity: 0.8;
   font-size: var(--label-font-size);
-  height: calc(var(--label-font-size) + 2px);
   color: var(--white-color);
   background-color: var(--label-default-color);
   border-radius: 12px;
@@ -414,8 +435,11 @@ footer.wrapper {
   position: relative;
 }
 
-.teacher .teacher-name:hover {
-  text-decoration: underline;
+
+@media (hover: hover) {
+  .teacher .teacher-name:hover {
+    text-decoration: underline;
+  }
 }
 
 .info {
@@ -431,7 +455,6 @@ footer.wrapper {
 
 .last-update {
   font-size: var(--main-font-size);
-  //font-weight: lighter;
   position: absolute;
   left: 50%;
   transform: translateX(-50%);
@@ -486,9 +509,12 @@ footer {
   text-decoration: none;
 }
 
-.mail > a:hover, .copyright-company:hover {
-  text-decoration: underline;
+@media (hover: hover) {
+  .mail > a:hover, .copyright-company:hover {
+    text-decoration: underline;
+  }
 }
+
 
 .mail:focus, .mail > a:focus, .copyright-company:focus, .copyright-company:focus {
   outline: 0;
@@ -500,6 +526,7 @@ footer {
 } 
 
 .btn {
+  -webkit-tap-highlight-color: rgba(0,0,0,0);
   height: 36px;
   width: 36px;
   border-radius: 50%;
@@ -515,9 +542,12 @@ footer {
   border-radius: 50%;
 }
 
-.btn:hover {
-  background-color: var(--bg-light-color);
+@media (hover: hover) {
+  .btn:hover {
+    background-color: var(--bg-light-color);
+  }
 }
+
 
 .btn:hover:active {
   background-color: var(--plug-color);
@@ -618,6 +648,7 @@ footer {
 }
 
 .event {
+  color: var(--primary-color);
   width: 100%;
   box-sizing: border-box;
   padding: 10px;
@@ -730,8 +761,11 @@ footer {
   transition: 0.2s;
 }
 
-.delete-button:hover {
-  background-color: var(--bg-light-color);
+
+@media (hover: hover) {
+  .delete-button:hover {
+    background-color: var(--bg-light-color);
+  }
 }
 
 .delete-button>.delete-icon {
@@ -748,6 +782,7 @@ footer {
 }
 
 .search > input {
+  -webkit-tap-highlight-color: rgba(0,0,0,0);
   outline: none;
   border: none;
   padding: 0;
@@ -819,8 +854,11 @@ footer {
   background-color: var(--bg-light-color);
 }
 
-.option:hover {
-  background-color: var(--bg-light-color);
+
+@media (hover: hover) {
+  .option:hover {
+    background-color: var(--bg-light-color);
+  }
 }
 
 .option:active {
@@ -873,7 +911,6 @@ footer {
 .calendar-navigate {
   display: flex;
   justify-content: space-between;
-  //align-items: center;
   padding: 0 4px;
   position: relative;
 }
@@ -932,16 +969,21 @@ footer {
   color: var(--primary-color);
 }
 
-.calendar>.not-this-month>div:hover {
-  color: var(--primary-color);
+
+@media (hover: hover) {
+  .calendar>.not-this-month>div:hover {
+    color: var(--primary-color);
+  }
 }
 
 .calendar>.weekend.not-this-month>div:active {
   color: var(--button-color);
 }
 
-.calendar>.weekend.not-this-month>div:hover {
-  color: var(--button-color);
+@media (hover: hover) {
+  .calendar>.weekend.not-this-month>div:hover {
+    color: var(--button-color);
+  }
 }
 
 .calendar>div>div {
@@ -952,11 +994,12 @@ footer {
   width: 30px;
   height: 30px;
   margin: 0px auto;
-  //transition: 0.2s; 
 }
 
-.calendar>div>div:hover {
-  background-color: var(--bg-light-color);
+@media (hover: hover) {
+  .calendar>div>div:hover {
+    background-color: var(--bg-light-color);
+  }
 }
 
 .calendar>.today>div {
@@ -974,7 +1017,6 @@ footer {
   width: calc(100% - 16px);
   max-width: 120px;
   height: 16px;
-  //border-radius: 8px;
 }
 
 .teacher.plug {
@@ -982,7 +1024,6 @@ footer {
   max-width: 100px;
   margin-top: 6px;
   height: 16px;
-  //border-radius: 8px;
 }
 
 .label.plug {
@@ -1000,16 +1041,30 @@ footer {
 }
 
 .welcome-page {
-  height: 100vh;
+  height: 100%;
+  width: 100%;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  right: 0;
+  left: 0;
   display: flex;
   flex-direction: column;
 }
 
 .main-container {
-  height: 100vh;
+  overflow-y: scroll;
+  height: 100%;
   width: 100%;
   min-height: 600px;
   position: relative;
+}
+
+.welcome-page-mobile .main-container {
+  min-height: 100vh;
+  min-height: -moz-available;          
+  min-height: -webkit-fill-available;  
+  min-height: fill-available;
 }
 
 .greeting {
@@ -1030,7 +1085,6 @@ footer {
   margin: 0 auto;
   margin-top: 15vh;
   margin-bottom: 46px;
-  //border-radius: 14px;
   border-radius: 23px;
   opacity: 0.9;
   background-size: cover;
@@ -1038,20 +1092,18 @@ footer {
   transition: opacity .2s;
 }
 
-.gif:hover {
-  //box-shadow: 0 0 0 2pt var(--bg-light-color);
-  opacity: 0.6;
+@media (hover: hover) {
+  .gif:hover {
+    opacity: 0.6;
+  }
 }
 
 .searchbar-container {
   position: relative;
-  //top: 0; left: 0; bottom: 0; right: 0;
-  //margin: auto; 
   height: 46px;
 }
 
 .searchbar-container > .searchbar {
-  //position: relative;
   top: 0;
   width: 100%;
   max-width: 500px;
@@ -1074,7 +1126,6 @@ footer {
   width: 100%;
   height: 100%;
   background-color: rgba(0, 0, 0, 0.4);
-  //-webkit-transition: 0.5s;
   overflow: auto;
   backdrop-filter: blur(2px);
 }
@@ -1122,8 +1173,10 @@ footer {
   transition: 0.2s;
 }
 
-.close-button:hover {
-  background-color: var(--bg-light-color);
+@media (hover: hover) {
+  .close-button:hover {
+    background-color: var(--bg-light-color);
+  }
 }
 
 .close-button>.close-icon {
@@ -1169,6 +1222,7 @@ footer {
 }
 
 .modal-btn {
+  -webkit-tap-highlight-color: rgba(0,0,0,0);
   color: var(--primary-acsent-color);
   border: 1px solid var(--primary-acsent-color);
   font-weight: 600;
@@ -1189,10 +1243,13 @@ footer {
   border-radius: 24px;
 }
 
-.modal-btn:hover {
-  border: 1px solid var(--primary-acsent-color);
-  background-color: var(--primary-acsent-color);
-  color: var(--white-color);
+
+@media (hover: hover) {
+  .modal-btn:hover {
+    border: 1px solid var(--primary-acsent-color);
+    background-color: var(--primary-acsent-color);
+    color: var(--white-color);
+  }
 }
 
 .modal-btn:focus, .modal-btn>div:focus {
@@ -1220,8 +1277,10 @@ footer {
   display: inline-block;
 }
 
-.modal-btn:hover > div > .modal-btn-icon {
-  background-image: url("arrow-icon-white.svg");
+@media (hover: hover) {
+  .modal-btn:hover > div > .modal-btn-icon {
+    background-image: url("arrow-icon-white.svg");
+  }
 }
 
 .loader,
@@ -1284,9 +1343,12 @@ footer {
   min-width: inherit;
 }
 
-.helpbox .close-button:hover {
-  background-color: transparent;
-  opacity: 0.8;
+
+@media (hover: hover) {
+  .helpbox .close-button:hover {
+    background-color: transparent;
+    opacity: 0.8;
+  }
 }
 
 .helpbox .helpbox-message {

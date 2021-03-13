@@ -8,10 +8,11 @@
 }
 
 .timetable-mobile-wrapper {
-  max-height: calc(100vh - 148px);
+  max-height: calc(100% - 148px);
+  height: 100%;
 	border-radius: 26px 26px 0 0;
 	margin-top: 20px;
-	flex-grow: 1;
+	//flex: 1;
 	overflow: hidden;
 	padding: 20px 10px 0 10px;
 	background-color: var(--bg-color);
@@ -22,15 +23,14 @@
 
 .timetable-scrollable {
 	height: 100%;
-  max-height: calc(100vh - 168px);
-  width: calc(100vw - 20px);
-  max-width: 500px;
+  background-color: var(--bg-color);
+  max-height: calc(100% - 168px);
+  padding: 0 10px;
   right: 0;
   left: 0;
 	margin: auto;
 	overflow: scroll;
 	-webkit-overflow-scrolling: touch;
-	position: relative;
   scroll-behavior: smooth;
   position: absolute;  
   -ms-overflow-style: none;
@@ -45,6 +45,12 @@
 .timetable-scrollable > section {
 	position: relative;
 	margin-bottom: 0;
+  background-color: var(--bg-color);
+}
+
+section > .row {
+  max-width: 500px;
+  margin: auto;
 }
 
 section > .row.day {
@@ -124,7 +130,7 @@ section > .row.day {
   background-color: var(--primary-acsent-color);
 }
 
-.week-navigation > .dates .clickable {
+.week-navigation > .dates .non-clickable {
   color: var(--bg-light-color);
 }
 
@@ -144,12 +150,22 @@ section > .row.day {
   background-color: var(--plug-color) !important;
 }
 
-.week-navigation .date:not(.clickable)>div>div {
+.week-navigation .date:not(.non-clickable)>div>div {
   cursor: pointer;
 }
 
-.week-navigation .date:not(.clickable):not(.today)>div:hover>div {
-  background-color: var(--plug-color);
+.week-navigation .date {
+  -webkit-tap-highlight-color: rgba(0,0,0,0);
+}
+
+.week-navigation .btn {
+  -webkit-tap-highlight-color: rgba(0,0,0,0);
+}
+
+@media (hover: hover) {
+  .week-navigation .date:not(.non-clickable):not(.today)>div>div:hover {
+    background-color: var(--plug-color);
+  }
 }
 
 .timetable-scrollable .no-schedule {
