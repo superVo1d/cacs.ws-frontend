@@ -23,7 +23,7 @@ const PageNotFound = (props) => {
 		<>
 			{
 				isTabletOrMobile ? (
-					<div className="mobile-wrapper">
+					<div>
 						<NavbarMobile>
 							<div className="btn-container">
 					        </div>

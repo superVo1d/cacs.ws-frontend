@@ -492,6 +492,13 @@ footer {
   color: var(--button-color);
 }
 
+.footer-container {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+}
+
 .copyright {
   font-size: var(--main-font-size);
   padding: 25px 0;
@@ -1056,15 +1063,56 @@ footer {
   overflow-y: scroll;
   height: 100%;
   width: 100%;
-  min-height: 600px;
+  //min-height: 600px;
   position: relative;
 }
 
-.welcome-page-mobile .main-container {
-  min-height: 100vh;
-  min-height: -moz-available;          
-  min-height: -webkit-fill-available;  
-  min-height: fill-available;
+#root {
+  min-height: 320px;
+}
+
+@media screen and (max-height: 450px)
+{
+  .welcome-page.welcome-page-mobile .gif {
+    width: 0 !important;
+    height: 0 !important;
+    margin-bottom: 45vh;
+  }
+
+  h1.error {
+    font-size: 80px;
+    margin-top: 20vh;
+  }
+
+  .modal-btn-container {
+    display: none;
+  }
+
+  .mail {
+    display: none;
+  }
+}
+
+@media screen and (max-height: 450px) {
+  .footer-container {
+    position: relative;
+  }
+}
+
+@media screen and (min-height: 450px) and (max-height: 600px)
+{
+  h1.error {
+    font-size: 100px;
+    margin-top: 5vh !important;
+  }
+
+  .error-description>p {
+    margin: 10px 0;
+  }
+
+  .mail {
+    display: none;
+  }
 }
 
 .greeting {
@@ -1107,13 +1155,6 @@ footer {
   top: 0;
   width: 100%;
   max-width: 500px;
-}
-
-.footer-container {
-  position: absolute;
-  bottom: 0;
-  right: 0;
-  left: 0;
 }
 
 .modal {
@@ -1195,10 +1236,12 @@ footer {
 }
 
 .error-page {
-  height: 100vh;
-  min-height: 600px;
   display: flex;
   flex-direction: column;
+}
+
+.error-page > .main-container {
+  position: inherit;
 }
 
 .error {
