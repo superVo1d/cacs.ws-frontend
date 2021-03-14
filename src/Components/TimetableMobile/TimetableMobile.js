@@ -262,12 +262,31 @@ const TimetableMobile = (props) => {
 
 		const index = Object.keys(groupedByDay).indexOf(date.toString());
 
-		if (daysRef.current[index] && Object.keys(groupedByDay).includes(date.toString())) {
-			daysRef.current[index].scrollIntoView();
-			//setActiveDay(day);
-		}
+		if (index !== -1) {
+			if (typeof daysRef.current[index] !== 'undefined') {
+				daysRef.current[index].scrollIntoView();
+			}
+		} else {
+			let nearestNeighbor = -1;
+			let minDifference = 7;
 
-		//document.querySelector('.timetable-scrollable').scrollIntoView(0, daysRef.current[day].offsetTop);
+			let arr = Object.keys(groupedByDay);
+
+			for (let i = 0; i < arr.length; i++) {
+
+				let currentIndex = parseInt(arr[i]);
+
+				if (Math.abs(date - currentIndex) < minDifference) {
+					nearestNeighbor = currentIndex;
+				}
+			}
+
+			const refIndex = Object.keys(groupedByDay).indexOf(nearestNeighbor.toString());
+
+			if (typeof daysRef.current[refIndex] !== 'undefined') {
+				daysRef.current[refIndex].scrollIntoView();
+			}
+		} 
 	}
 
 	function compareByTime( a, b ) {

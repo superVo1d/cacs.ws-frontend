@@ -159,7 +159,7 @@ section > .row.day {
 
 @media (hover: hover) {
   .week-navigation .date:not(.non-clickable):not(.today)>div>div:hover {
-    background-color: var(--plug-color);
+    background-color: var(--bg-light-color);
   }
 }
 

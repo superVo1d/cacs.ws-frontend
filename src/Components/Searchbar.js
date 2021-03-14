@@ -1,5 +1,6 @@
 import { useState, useRef, useEffect, useLayoutEffect } from 'react';
 import { useHistory } from 'react-router-dom';
+import { isMobile } from 'react-device-detect';
 
 const Searchbar = (props) => {
 
@@ -59,8 +60,13 @@ const Searchbar = (props) => {
 
 	const handleOnFocus = () => {
 		if (!display) {
-			inputRef.current.selectionStart = inputRef.current.value[0];
-        	inputRef.current.selectionEnd = inputRef.current.value.length;
+			if (isMobile) {
+				inputRef.current.selectionStart = inputRef.current.value.length;
+				inputRef.current.selectionEnd = inputRef.current.value.length;
+			} else {
+				inputRef.current.selectionStart = inputRef.current.value[0];
+        		inputRef.current.selectionEnd = inputRef.current.value.length;
+			}
 		}
 
 		setDisplay(true);
