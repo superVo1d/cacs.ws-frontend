@@ -755,6 +755,7 @@ footer {
 }
 
 .delete-button {
+  -webkit-tap-highlight-color: rgba(0,0,0,0);
   position: absolute;
   top: 10px;
   right: 0;
@@ -1202,6 +1203,7 @@ footer {
 }
 
 .close-button {
+  -webkit-tap-highlight-color: rgba(0,0,0,0);
   position: absolute;
   top: 20px;
   right: 20px;

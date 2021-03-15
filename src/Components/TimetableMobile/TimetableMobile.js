@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useLayoutEffect, useRef } from 'react';
 import { useParams, useLocation } from 'react-router-dom';
 
 import './TimetableMobile.css';
@@ -35,7 +35,17 @@ const TimetableMobile = (props) => {
     	if (week === getWeekNumber(new Date())) {
 			handleClickDay(new Date().getDate())
 		}
-	}, [daysRef.current]);    	
+	}, [daysRef.current]);   
+
+	useLayoutEffect(() => {
+
+		const today = new Date();
+
+		if ((today.getDay() === 0) && (Object.keys(groupedByDay).indexOf(today.toString()) !== -1)) {
+			handleClickNextWeek();
+		}
+
+    }, []); 	
 
 	useEffect(() => {
 
@@ -221,7 +231,7 @@ const TimetableMobile = (props) => {
 		return d.toLocaleString('ru-RU', { hour: 'numeric', minute: '2-digit' });
 	}
 
-	const handleClickPrevWeek = (prev) => {
+	const handleClickPrevWeek = () => {
 		setWeek(prev => {
 		  if (prev === 1) {
 		    return 53;
@@ -231,7 +241,7 @@ const TimetableMobile = (props) => {
 		});
 	}
 
-	const handleClickNextWeek = (next) => {
+	const handleClickNextWeek = () => {
 		setWeek(prev => {
 		  if (prev === 53) {
 		    return 1;
@@ -354,7 +364,7 @@ const TimetableMobile = (props) => {
 
           				return (
           					<div className={ "date day" + (isToday ? " today" : "") + (isActive ? " active" : "") + (!isClickable ? " non-clickable" : "") } 
-          					       onClick={ () => handleClickDay(day.getDate()) }
+          					       onClick={ () => isClickable && handleClickDay(day.getDate()) }
           					           key={i}>
           						<div>
           							<div><b>{ day.getDate() }</b></div>
@@ -387,7 +397,8 @@ const TimetableMobile = (props) => {
 								return (
 									<section ref={el => daysRef.current[i] = el}
 											 key={i}>
-										<div className={ isToday ? "row day today" : "row day" }>
+										<div className={ isToday ? "row day today" : "row day" }
+											   onClick={ () => handleClickDay(d.getDate()) }>
 											<div className="field time"></div>
 											<div className="date-info">
 												<span>{ days[d.getDay()] }</span>								
